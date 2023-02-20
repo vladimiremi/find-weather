@@ -6,6 +6,10 @@ import {
   Overpass_300Light,
   useFonts,
 } from '@expo-google-fonts/overpass';
+import { ThemeProvider } from 'styled-components';
+import theme from './src/theme';
+import { Welcome } from './src/screens/Welcome';
+import { StatusBar } from 'react-native';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -14,5 +18,14 @@ export default function App() {
     Overpass_400Regular,
     Overpass_300Light,
   });
-  return fontsLoaded ? <Home /> : false;
+  return (
+    <ThemeProvider theme={theme}>
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor="transparent"
+        translucent
+      />
+      {fontsLoaded ? <Welcome /> : false}
+    </ThemeProvider>
+  );
 }
