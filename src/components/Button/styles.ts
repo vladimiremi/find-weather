@@ -1,20 +1,15 @@
 import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
+import { IButton } from '.';
 
-export const Container = styled(TouchableOpacity)`
-  margin-top: 74px;
-  background-color: ${({ theme }) => theme.COLORS.DARK_300};
-  align-items: center;
+export const Container = styled(TouchableOpacity).attrs(() => ({
+  activeOpacity: '0.75',
+}))<IButton>`
+  background-color: ${({ backgroundColor }) => backgroundColor};
+  border-radius: ${({ borderRadius }) => borderRadius}px;
+  height: ${({ height }) => height}px;
   justify-content: center;
-  text-align: center;
-  min-height: 54px;
-  max-height: 54px;
-  border-radius: 18px;
-  border: 1px solid ${({ theme }) => theme.COLORS.GRAY_300};
-`;
 
-export const Title = styled.Text`
-  color: ${({ theme }) => theme.COLORS.WHITE};
-  font-size: ${({ theme }) => theme.FONT_SIZE.MD}px;
-  font-family: ${({ theme }) => theme.FONT_FAMILY.REGULAR};
+  border-color: ${({ borderColor }) => borderColor};
+  border-width: ${({ borderColor }) => borderColor && 1}px;
 `;
