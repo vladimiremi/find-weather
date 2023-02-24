@@ -18,6 +18,8 @@ export function AppRoutes() {
         tabBarBackground: () => (
           <View style={{ backgroundColor: theme.COLORS.DARK, flex: 1 }}></View>
         ),
+        tabBarActiveTintColor: theme.COLORS.WHITE,
+        tabBarInactiveTintColor: theme.COLORS.GRAY_500,
       }}
     >
       <Screen
