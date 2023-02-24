@@ -20,6 +20,7 @@ export function AppRoutes() {
         ),
         tabBarActiveTintColor: theme.COLORS.WHITE,
         tabBarInactiveTintColor: theme.COLORS.GRAY_500,
+        tabBarLabelPosition: 'beside-icon',
       }}
     >
       <Screen
