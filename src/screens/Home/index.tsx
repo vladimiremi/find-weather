@@ -1,8 +1,10 @@
+import { NativeStackNavigationProp } from '@react-navigation/native-stack/lib/typescript/src/types';
 import { StatusBar } from 'expo-status-bar';
-import { Text, View } from 'react-native';
+import React from 'react';
+import { Text, View, Button } from 'react-native';
 import { styles } from './styles';
 
-export function Home() {
+function Home() {
   return (
     <View style={styles.container}>
       <Text>Hello World!</Text>
@@ -10,3 +12,5 @@ export function Home() {
     </View>
   );
 }
+
+export default React.memo(Home);

@@ -1,21 +1,30 @@
+import React from 'react';
+import { useTheme } from 'styled-components/native';
 import { Container, ContainerLogo, Logo } from './styles';
 import logoImage from '../../assets/images/cloud-and-thunder.png';
-import theme from '../../theme';
+
 import { Text } from '../../components/Text';
 import { Button } from '../../components/Button';
 import Divider from '../../components/Divider';
+import { useNavigation } from '@react-navigation/native';
 
-const LetterBold = () => (
-  <Text
-    fontFamily={theme.FONT_FAMILY.OVERPASS_BOLD}
-    fontSize={theme.FONT_SIZE.MD}
-    color={theme.COLORS.GRAY_100}
-  >
-    Weather
-  </Text>
-);
+const LetterBold = () => {
+  const theme = useTheme();
+  return (
+    <Text
+      fontFamily={theme.FONT_FAMILY.OVERPASS_BOLD}
+      fontSize={theme.FONT_SIZE.MD}
+      color={theme.COLORS.GRAY_100}
+    >
+      Weather
+    </Text>
+  );
+};
 
-export function Welcome() {
+function Welcome() {
+  const navigation = useNavigation();
+  const theme = useTheme();
+
   return (
     <Container>
       <Divider top={137} />
@@ -59,6 +68,7 @@ export function Welcome() {
           fontSize={theme.FONT_SIZE.MD}
           color={theme.COLORS.WHITE}
           textAlign="center"
+          onPress={() => navigation.navigate('home')}
         >
           Iniciar
         </Text>
@@ -67,3 +77,5 @@ export function Welcome() {
     </Container>
   );
 }
+
+export default React.memo(Welcome);

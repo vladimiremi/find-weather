@@ -1,4 +1,3 @@
-import { Home } from './src/screens/Home';
 import {
   Overpass_700Bold,
   Overpass_600SemiBold,
@@ -8,8 +7,8 @@ import {
 } from '@expo-google-fonts/overpass';
 import { ThemeProvider } from 'styled-components';
 import theme from './src/theme';
-import { Welcome } from './src/screens/Welcome';
 import { StatusBar } from 'react-native';
+import Routes from './src/routes';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -25,7 +24,7 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-      {fontsLoaded ? <Welcome /> : false}
+      {fontsLoaded ? <Routes /> : false}
     </ThemeProvider>
   );
 }
