@@ -1,31 +1,24 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-  flex-direction: row;
   border: 1px solid ${({ theme }) => theme.COLORS.GRAY_600};
+  flex-direction: row;
+  width: 100%;
   border-radius: 18px;
-  /* background-color: red; */
-  justify-content: space-around;
-  align-items: center;
-  padding: 10px 0;
+  justify-content: space-between;
+  padding: 10px 0px;
 `;
 
 export const ContainerItem = styled.View`
   justify-content: center;
   align-items: center;
-`;
-
-export const ContainerItemWithLine = styled(ContainerItem)`
-  flex-direction: row;
-`;
-
-export const ContainerItemInLine = styled(ContainerItem)`
-  margin: 0 13px;
+  width: 33.33%;
 `;
 
 export const Line = styled.View`
   width: 1px;
-  height: 36px;
+  height: 80%;
+  align-self: center;
   background-color: ${({ theme }) => theme.COLORS.GRAY_600};
 `;
 
