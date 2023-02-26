@@ -14,9 +14,18 @@ export function AppRoutes() {
     <Navigator
       initialRouteName="Home"
       screenOptions={{
+        tabBarStyle: {
+          borderTopWidth: 0,
+        },
         headerShown: false,
         tabBarBackground: () => (
-          <View style={{ backgroundColor: theme.COLORS.DARK, flex: 1 }}></View>
+          <View
+            style={{
+              backgroundColor: theme.COLORS.DARK,
+              flex: 1,
+              borderWidth: 0,
+            }}
+          ></View>
         ),
         tabBarActiveTintColor: theme.COLORS.WHITE,
         tabBarInactiveTintColor: theme.COLORS.GRAY_500,
@@ -31,7 +40,6 @@ export function AppRoutes() {
             <FontAwesome5 name="house-damage" size={size} color={color} />
           ),
           tabBarLabel: 'Home',
-          // tabBarColor: '#009387',
         }}
       />
       <Screen
@@ -42,7 +50,6 @@ export function AppRoutes() {
             <AntDesign name="search1" size={size} color={color} />
           ),
           tabBarLabel: 'Busca',
-          // tabBarColor: '#009387',
         }}
       />
     </Navigator>
