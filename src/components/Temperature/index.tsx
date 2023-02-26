@@ -4,16 +4,17 @@ import { Container } from './styles';
 
 interface ITemperature {
   value: number;
+  fontSize?: number;
   colorSymbol?: string;
 }
 
-export const Temperature = ({ value, colorSymbol }: ITemperature) => {
+export const Temperature = ({ value, fontSize, colorSymbol }: ITemperature) => {
   const theme = useTheme();
   return (
     <Container>
       <Text
         fontFamily={theme.FONT_FAMILY.OVERPASS_BOLD}
-        fontSize={theme.FONT_SIZE.GIANT}
+        fontSize={fontSize || theme.FONT_SIZE.GIANT}
         color={theme.COLORS.WHITE}
         style={{ lineHeight: 96 }}
       >
