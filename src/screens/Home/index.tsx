@@ -12,16 +12,72 @@ import {
   Container,
   ContainerCity,
   ContainerCityName,
-  ContainerDays,
   ContainerImage,
   ContainerTitle,
   Image,
   NextDays,
 } from './styles';
 import { Temperature } from '../../components/Temperature';
-import { ClimateStatistics } from '../../components/ClimateStatistics';
-import { ClimateDay } from '../../components/ClimateDay';
+import { WeatherDescription } from '../../components/WeatherDescription';
+import { CardHourTemperature } from '../../components/CardHourTemperature';
 import RainingCloudMiniature from '../../assets/images/raining-cloud-miniature.png';
+import DropMiniaturePNG from '../../assets/images/drop-miniature.png';
+import WindMiniaturePNG from '../../assets/images/wind-miniature.png';
+import RainingCloudPNG from '../../assets/images/raining-cloud-miniature.png';
+import ClimateChangePNG from '../../assets/images/climate-change.png';
+
+const dataWeatherDescription = [
+  {
+    id: 1,
+    icon: DropMiniaturePNG,
+    value: '24%',
+    text: 'Umidade',
+  },
+
+  {
+    id: 2,
+    icon: WindMiniaturePNG,
+    value: '30km/h',
+    text: 'Veloc. Vento',
+  },
+
+  {
+    id: 3,
+    icon: RainingCloudPNG,
+    value: '76%',
+    text: 'Chuva',
+  },
+];
+
+const dataCardHourTemperature = [
+  {
+    id: 1,
+    icon: DropMiniaturePNG,
+    temperatureValue: 23,
+    hour: '09:00',
+  },
+
+  {
+    id: 2,
+    icon: WindMiniaturePNG,
+    temperatureValue: 18,
+    hour: '13:00',
+  },
+
+  {
+    id: 3,
+    icon: RainingCloudPNG,
+    temperatureValue: 8,
+    hour: '17:00',
+  },
+
+  {
+    id: 4,
+    icon: RainingCloudPNG,
+    temperatureValue: 8,
+    hour: '23:00',
+  },
+];
 
 function Home() {
   const theme = useTheme();
@@ -64,7 +120,12 @@ function Home() {
             <Image source={RainingImage} />
           </ContainerImage>
 
-          <Temperature value={10} />
+          <Temperature
+            maxTemp={23}
+            minTemp={18}
+            maxTempFontSize={theme.FONT_SIZE.GIANT}
+            minTempFontSize={theme.FONT_SIZE.XL}
+          />
 
           <Text
             fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
@@ -76,7 +137,7 @@ function Home() {
 
           <Divider top={45} />
 
-          <ClimateStatistics />
+          <WeatherDescription data={dataWeatherDescription} />
 
           <Divider top={45} />
 
@@ -108,16 +169,7 @@ function Home() {
           </ContainerTitle>
 
           <Divider top={27} />
-          <ContainerDays>
-            {[1, 2, 3, 4].map((item, index) => (
-              <ClimateDay
-                key={index}
-                icon={RainingCloudMiniature}
-                temperature={10}
-                time={'19:00'}
-              />
-            ))}
-          </ContainerDays>
+          <CardHourTemperature data={dataCardHourTemperature} />
         </Container>
       )}
     </>

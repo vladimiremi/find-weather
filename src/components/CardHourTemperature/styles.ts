@@ -1,14 +1,23 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-  width: 68px;
-  height: 90px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+`;
+
+export const ContainerCard = styled.View`
+  padding: 8px 18px;
   border-radius: 20px;
   background-color: ${({ theme }) => theme.COLORS.DARK_300};
-  padding: 8px 0;
   align-items: center;
-  justify-content: space-between;
   border: 1.5px solid ${({ theme }) => theme.COLORS.DARK_100};
+`;
+
+export const ContainerTemperature = styled.View`
+  flex-direction: row;
+  align-items: center;
 `;
 
 export const Icon = styled.Image``;

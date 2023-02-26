@@ -1,33 +1,61 @@
 import { useTheme } from 'styled-components/native';
 import { Text } from '../Text';
-import { Container } from './styles';
+import {
+  Container,
+  MaxTemperatureContainer,
+  MinTemperatureContainer,
+} from './styles';
 
 interface ITemperature {
-  value: number;
-  fontSize?: number;
-  colorSymbol?: string;
+  minTemp: number;
+  maxTemp: number;
+  minTempFontSize: number;
+  maxTempFontSize: number;
 }
 
-export const Temperature = ({ value, fontSize, colorSymbol }: ITemperature) => {
+export const Temperature = ({
+  minTemp,
+  maxTemp,
+  minTempFontSize,
+  maxTempFontSize,
+}: ITemperature) => {
   const theme = useTheme();
   return (
     <Container>
-      <Text
-        fontFamily={theme.FONT_FAMILY.OVERPASS_BOLD}
-        fontSize={fontSize || theme.FONT_SIZE.GIANT}
-        color={theme.COLORS.WHITE}
-        style={{ lineHeight: 96 }}
-      >
-        {value}
-      </Text>
-      <Text
-        fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
-        fontSize={theme.FONT_SIZE.LG}
-        color={colorSymbol || theme.COLORS.WHITE}
-        style={{ lineHeight: 50 }}
-      >
-        °
-      </Text>
+      <MaxTemperatureContainer>
+        <Text
+          fontFamily={theme.FONT_FAMILY.OVERPASS_BOLD}
+          fontSize={maxTempFontSize}
+          color={theme.COLORS.WHITE}
+        >
+          {maxTemp}
+        </Text>
+        <Text
+          fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
+          fontSize={theme.FONT_SIZE.LG}
+          color={theme.COLORS.WHITE}
+          style={{ paddingBottom: 35 }}
+        >
+          °
+        </Text>
+      </MaxTemperatureContainer>
+      <MinTemperatureContainer>
+        <Text
+          fontFamily={theme.FONT_FAMILY.OVERPASS_BOLD}
+          fontSize={minTempFontSize}
+          color={theme.COLORS.GRAY_100}
+        >
+          {''} / {''} {minTemp}
+        </Text>
+        <Text
+          fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
+          fontSize={theme.FONT_SIZE.MD}
+          color={theme.COLORS.GRAY_100}
+          style={{ paddingBottom: 24 }}
+        >
+          º
+        </Text>
+      </MinTemperatureContainer>
     </Container>
   );
 };
