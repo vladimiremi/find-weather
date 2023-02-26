@@ -38,8 +38,3 @@ export const NextDays = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
 `;
-
-export const ContainerDays = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-`;
