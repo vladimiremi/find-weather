@@ -25,6 +25,7 @@ import DropMiniaturePNG from '../../assets/images/drop-miniature.png';
 import WindMiniaturePNG from '../../assets/images/wind-miniature.png';
 import RainingCloudPNG from '../../assets/images/raining-cloud-miniature.png';
 import ClimateChangePNG from '../../assets/images/climate-change.png';
+import { useNavigation } from '@react-navigation/native';
 
 const dataWeatherDescription = [
   {
@@ -81,6 +82,7 @@ const dataCardHourTemperature = [
 
 function Home() {
   const theme = useTheme();
+  const navigation = useNavigation();
 
   return (
     <>
@@ -156,7 +158,7 @@ function Home() {
                 fontSize={theme.FONT_SIZE.XS}
                 color={theme.COLORS.GRAY_100}
                 textAlign="center"
-                // onPress={() => navigation.navigate('home')}
+                onPress={() => navigation.navigate('home/moredays')}
               >
                 Próximos 5 dias
               </Text>
