@@ -1,18 +1,22 @@
 import { View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { FontAwesome5, AntDesign } from '@expo/vector-icons';
-
 const { Navigator, Screen } = createBottomTabNavigator();
-
-import Home from '../screens/Home';
-import Welcome from '../screens/Welcome';
 import { useTheme } from 'styled-components/native';
+
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+const { Navigator: StackNavigation, Screen: StackScreen } =
+  createNativeStackNavigator();
+
+import Search from '../screens/Search';
+import { StackAppRoutes } from './stackApp.routes';
 
 export function AppRoutes() {
   const theme = useTheme();
   return (
     <Navigator
-      initialRouteName="Home"
+      initialRouteName="home"
       screenOptions={{
         tabBarStyle: {
           borderTopWidth: 0,
@@ -33,8 +37,8 @@ export function AppRoutes() {
       }}
     >
       <Screen
-        name="home"
-        component={Home}
+        name="homeTab"
+        component={StackAppRoutes}
         options={{
           tabBarIcon: ({ color, size }) => (
             <FontAwesome5 name="house-damage" size={size} color={color} />
@@ -44,7 +48,7 @@ export function AppRoutes() {
       />
       <Screen
         name="search"
-        component={Home}
+        component={Search}
         options={{
           tabBarIcon: ({ color, size }) => (
             <AntDesign name="search1" size={size} color={color} />

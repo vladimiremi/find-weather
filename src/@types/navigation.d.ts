@@ -3,6 +3,7 @@ export declare global {
     interface RootParamList {
       home: undefined;
       welcome: undefined;
+      'home/moredays': undefined;
     }
   }
 }
