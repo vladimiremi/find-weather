@@ -11,7 +11,7 @@ function Search() {
   const theme = useTheme();
   return (
     <Container>
-      <Divider top={51} />
+      <Divider top={52} />
 
       <Header title="Busca" />
 
