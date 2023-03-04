@@ -19,12 +19,12 @@
 - [x] Configurar a navegação do tipo Stack
 - [x] Criar a tela Home com a variação para quando for o primeiro acesso do usuário (Empty State) e para quando o mesmo já possuir uma cidade selecionada
 
+### Tarefas do dia 4:
 
-### Tarefas do dia 3: 
-- [] Criar a tela Search
-- [] Criar os componentes da tela Search
+- [x] Criar a tela Search
+- [x] Criar os componentes da tela Search
 - [] Instalar e configurar o Axios
 - [] Consumir a API do Weather API
 - [] Salvar a consulta localmente
-- [] Criar a navegação do botão de voltar
-- [] Instalar e configurar biblioteca babel-plugin-inline-dotenv
+- [x] Criar a navegação do botão de voltar
+- [x] Instalar e configurar biblioteca babel-plugin-inline-dotenv
