@@ -46,6 +46,51 @@ function MoreDays() {
     },
   ];
 
+  const dataCardHourTemperature = [
+    {
+      id: 1,
+      icon: DropMiniaturePNG,
+      temperatureValue: 23,
+      weekday: 'Seg',
+      monthAndDay: 'Jan, 02',
+      climate: 'Novoeiro',
+    },
+    {
+      id: 4,
+      icon: RainingCloudPNG,
+      temperatureValue: 8,
+      weekday: 'Ter',
+      monthAndDay: 'Jan, 03',
+      climate: 'Nuvens',
+    },
+    {
+      id: 2,
+      icon: WindMiniaturePNG,
+      temperatureValue: 18,
+      weekday: 'Qua',
+      monthAndDay: 'Jan, 04',
+      climate: 'Céu limpo',
+    },
+
+    {
+      id: 3,
+      icon: RainingCloudPNG,
+      temperatureValue: 8,
+      weekday: 'Qui',
+      monthAndDay: 'Jan, 05',
+      climate: 'Pouca chuva',
+    },
+
+    {
+      id: 4,
+      icon: RainingCloudPNG,
+      temperatureValue: 8,
+      weekday: 'Sex',
+      monthAndDay: 'Jan, 06',
+      climate: 'Nuvens',
+    },
+  ];
+
   return (
     <Container>
       <Divider top={37} />
