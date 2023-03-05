@@ -1,5 +1,5 @@
 import { View } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTheme } from 'styled-components/native';
 import Divider from '../../components/Divider';
 import { Text } from '../../components/Text';
@@ -26,6 +26,7 @@ import WindMiniaturePNG from '../../assets/images/wind-miniature.png';
 import RainingCloudPNG from '../../assets/images/raining-cloud-miniature.png';
 import ClimateChangePNG from '../../assets/images/climate-change.png';
 import { useNavigation } from '@react-navigation/native';
+import api from '../../services';
 
 const dataWeatherDescription = [
   {
@@ -83,6 +84,16 @@ const dataCardHourTemperature = [
 function Home() {
   const theme = useTheme();
   const navigation = useNavigation();
+  useEffect(() => {
+    (async () => {
+      try {
+        const resp = await api.get('/current.json?q=London&aqi=no');
+        console.log(resp);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
 
   return (
     <>
