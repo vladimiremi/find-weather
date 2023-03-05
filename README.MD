@@ -24,7 +24,7 @@
 - [x] Criar a tela Search
 - [x] Criar os componentes da tela Search
 - [x] Instalar e configurar o Axios
-- [] Consumir a API do Weather API
-- [] Salvar a consulta localmente
+- [x] Consumir a API do Weather API
+- [x] Salvar a consulta localmente
 - [x] Criar a navegação do botão de voltar
 - [x] Instalar e configurar biblioteca babel-plugin-inline-dotenv
