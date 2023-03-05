@@ -1,5 +1,5 @@
 import { View } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTheme } from 'styled-components/native';
 import Divider from '../../components/Divider';
 import { Text } from '../../components/Text';
@@ -20,11 +20,11 @@ import {
 import { Temperature } from '../../components/Temperature';
 import { WeatherDescription } from '../../components/WeatherDescription';
 import { CardHourTemperature } from '../../components/CardHourTemperature';
-import RainingCloudMiniature from '../../assets/images/raining-cloud-miniature.png';
 import DropMiniaturePNG from '../../assets/images/drop-miniature.png';
 import WindMiniaturePNG from '../../assets/images/wind-miniature.png';
 import RainingCloudPNG from '../../assets/images/raining-cloud-miniature.png';
-import ClimateChangePNG from '../../assets/images/climate-change.png';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const dataWeatherDescription = [
   {
@@ -81,10 +81,21 @@ const dataCardHourTemperature = [
 
 function Home() {
   const theme = useTheme();
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const value = await AsyncStorage.getItem('@city');
+
+        console.log(value);
+      } catch (error) {}
+    })();
+  }, []);
 
   return (
     <>
-      {false ? (
+      {true ? (
         <Empty />
       ) : (
         <Container>
@@ -156,7 +167,7 @@ function Home() {
                 fontSize={theme.FONT_SIZE.XS}
                 color={theme.COLORS.GRAY_100}
                 textAlign="center"
-                // onPress={() => navigation.navigate('home')}
+                onPress={() => navigation.navigate('home/moredays')}
               >
                 Próximos 5 dias
               </Text>

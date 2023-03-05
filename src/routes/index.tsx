@@ -9,8 +9,8 @@ export default function Routes() {
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.DARK }}>
       <NavigationContainer>
-        <InitialRoutes />
-        {/* <AppRoutes /> */}
+        {/* <InitialRoutes /> */}
+        <AppRoutes />
       </NavigationContainer>
     </View>
   );
