@@ -5,9 +5,11 @@ import { Text } from '../../../components/Text';
 import { Container, ContainerImage, Image } from './styles';
 
 import ClimateChange from '../../../assets/images/climate-change.png';
+import { useNavigation } from '@react-navigation/native';
 
 export function Empty() {
   const theme = useTheme();
+  const navigation = useNavigation();
 
   return (
     <Container>
@@ -34,6 +36,7 @@ export function Empty() {
         fontSize={theme.FONT_SIZE.MD}
         color={theme.COLORS.GRAY_100}
         style={{ textDecorationLine: 'underline' }}
+        onPress={() => navigation.navigate('search')}
       >
         Selecione aqui um local e encontre o clima em tempo real
       </Text>
