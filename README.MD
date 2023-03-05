@@ -23,7 +23,7 @@
 
 - [x] Criar a tela Search
 - [x] Criar os componentes da tela Search
-- [] Instalar e configurar o Axios
+- [x] Instalar e configurar o Axios
 - [] Consumir a API do Weather API
 - [] Salvar a consulta localmente
 - [x] Criar a navegação do botão de voltar
