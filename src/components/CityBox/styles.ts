@@ -1,10 +1,17 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+`;
+
+export const ContainerItem = styled.TouchableOpacity`
   background-color: ${({ theme }) => theme.COLORS.DARK_400};
   width: 155px;
   padding: 12px;
   border-radius: 20px;
+  margin: 10px;
 `;
 
 export const ContainerTemperature = styled.View`
