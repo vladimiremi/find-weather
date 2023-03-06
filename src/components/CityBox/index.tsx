@@ -14,75 +14,80 @@ import Divider from '../Divider';
 import { useNavigation } from '@react-navigation/native';
 
 export interface ICityDataProps {
-  country: string;
-  id: number;
-  lat: number;
-  lon: number;
-  name: string;
-  region: string;
-  url: string;
+  location: {
+    name: string;
+    region: string;
+    country: string;
+  };
+  current: {
+    temp_c: number;
+  };
+  condition: {
+    text: string;
+    icon: string;
+  };
 }
 
 interface ICityBox {
-  data: ICityDataProps[];
+  data: ICityDataProps;
 }
 
 const CityBox = ({ data }: ICityBox) => {
   const theme = useTheme();
   const navigation = useNavigation();
+  const { location, current, condition } = data;
   return (
     <Container>
-      {data.map(item => (
-        <ContainerItem
-          key={item.id + Math.random()}
-          onPress={() =>
-            navigation.navigate('home/moredays', { city: item.name })
-          }
+      <ContainerItem
+        key={Math.random()}
+        onPress={() =>
+          navigation.navigate('home/moredays', { city: location.name })
+        }
+      >
+        <ContainerWeather>
+          <ContainerTemperature>
+            <Text
+              color={theme.COLORS.WHITE}
+              fontSize={theme.FONT_SIZE.LG}
+              fontFamily={theme.FONT_FAMILY.OVERPASS_BOLD}
+            >
+              {current && Math.floor(current.temp_c)}
+            </Text>
+            <Text
+              fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
+              fontSize={theme.FONT_SIZE.SM}
+              color={theme.COLORS.WHITE}
+              style={{ paddingBottom: 9 }}
+            >
+              º
+            </Text>
+          </ContainerTemperature>
+          <ContainerIcon>
+            <Icon source={{ uri: `https:${condition.icon}` }} />
+          </ContainerIcon>
+        </ContainerWeather>
+
+        <Text
+          fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
+          fontSize={theme.FONT_SIZE.SM}
+          color={theme.COLORS.GRAY_100}
+          style={{ textAlign: 'left' }}
         >
-          <ContainerWeather>
-            <ContainerTemperature>
-              <Text
-                color={theme.COLORS.WHITE}
-                fontSize={theme.FONT_SIZE.LG}
-                fontFamily={theme.FONT_FAMILY.OVERPASS_BOLD}
-              >
-                13
-              </Text>
-              <Text
-                fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
-                fontSize={theme.FONT_SIZE.SM}
-                color={theme.COLORS.WHITE}
-                style={{ paddingBottom: 9 }}
-              >
-                º
-              </Text>
-            </ContainerTemperature>
-            <ContainerIcon>
-              <Icon source={Cloud} />
-            </ContainerIcon>
-          </ContainerWeather>
+          {condition.text}
+        </Text>
 
-          <Text
-            fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
-            fontSize={theme.FONT_SIZE.SM}
-            color={theme.COLORS.GRAY_100}
-            style={{ textAlign: 'left' }}
-          >
-            Nublado
-          </Text>
+        <Divider bottom={10} />
 
-          <Divider bottom={10} />
-
-          <Text
-            fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
-            fontSize={theme.FONT_SIZE.SM}
-            color={theme.COLORS.WHITE}
-            style={{ textAlign: 'left' }}
-          >
-            {item.name}
-          </Text>
-        </ContainerItem>
-      ))}
+        <Text
+          fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
+          fontSize={theme.FONT_SIZE.SM}
+          color={theme.COLORS.WHITE}
+          style={{ textAlign: 'left' }}
+        >
+          {location.name}, {location.region && location.region + ','}{' '}
+          {location.country}
+        </Text>
+      </ContainerItem>
     </Container>
   );
 };
