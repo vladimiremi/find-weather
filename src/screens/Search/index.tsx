@@ -21,7 +21,7 @@ import { ISearchData } from '../../utils/search.interce';
 function Search() {
   const theme = useTheme();
   const [search, useSearch] = useState('');
-  const [cities, setCities] = useState({} as ICityDataProps);
+  const [city, setCity] = useState({} as ICityDataProps);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [response, setResponse] = useState<ISearchData>(null);
@@ -35,7 +35,7 @@ function Search() {
 
       const { location, current } = resp.data;
 
-      setCities({
+      setCity({
         location: {
           name: location.name,
           region: location.region,
@@ -88,7 +88,7 @@ function Search() {
 
       <Divider top={42} />
       {!!isError && <ErrorContent />}
-      {!!response && !isError && !isLoading && <CityBox data={cities} />}
+      {!!response && !isError && !isLoading && <CityBox data={city} />}
     </Container>
   );
 }
