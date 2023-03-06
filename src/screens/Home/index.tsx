@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { View } from 'react-native';
 import React, { useEffect } from 'react';
 import { useTheme } from 'styled-components/native';
@@ -82,20 +83,21 @@ const dataCardHourTemperature = [
 function Home() {
   const theme = useTheme();
   const navigation = useNavigation();
+  const [isFirstAccess, setIsFirstAccess] = useState<any>();
 
   useEffect(() => {
     (async () => {
       try {
         const value = await AsyncStorage.getItem('@city');
 
-        console.log(value);
+        setIsFirstAccess(value);
       } catch (error) {}
     })();
   }, []);
 
   return (
     <>
-      {true ? (
+      {!isFirstAccess ? (
         <Empty />
       ) : (
         <Container>

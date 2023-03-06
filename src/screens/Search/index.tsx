@@ -10,22 +10,51 @@ import {
 } from './styles';
 import InputSearch from '../../components/InputSearch';
 import CityBox, { ICityDataProps } from '../../components/CityBox';
-import Empty from '../../components/Empty';
+import ErrorContent from '../../components/ErrorContent';
 import { AntDesign } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 
 import { FindWeatherAPI } from '../../services/FindWeatherAPI';
+import { ActivityIndicator } from 'react-native';
+import { ISearchData } from '../../utils/search.interce';
 
 function Search() {
   const theme = useTheme();
   const [search, useSearch] = useState('');
-  const [cities, setCities] = useState<ICityDataProps[]>();
+  const [city, setCity] = useState({} as ICityDataProps);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [response, setResponse] = useState<ISearchData>(null);
+
   const handleSearchCity = async (city: string) => {
     try {
-      const resp = await FindWeatherAPI.getSearch(city);
-      setCities(resp.data);
+      setIsLoading(true);
+      const resp = await FindWeatherAPI.getForecast(city);
+
+      setResponse(resp.data);
+
+      const { location, current } = resp.data;
+
+      setCity({
+        location: {
+          name: location.name,
+          region: location.region,
+          country: location.country,
+        },
+        current: {
+          temp_c: current.temp_c,
+        },
+        condition: {
+          text: current.condition.text,
+          icon: current.condition.icon,
+        },
+      });
+      setIsLoading(false);
+      setIsError(false);
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
+      setIsError(true);
     }
   };
   return (
@@ -50,8 +79,16 @@ function Search() {
         </ContainerIconLocation>
       </ContainerSearch>
 
+      {isLoading && (
+        <>
+          <Divider top={40} />
+          <ActivityIndicator size="small" color={theme.COLORS.WHITE} />
+        </>
+      )}
+
       <Divider top={42} />
-      {!!cities?.length ? <CityBox data={cities} /> : <Empty />}
+      {!!isError && <ErrorContent />}
+      {!!response && !isError && !isLoading && <CityBox data={city} />}
     </Container>
   );
 }

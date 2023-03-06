@@ -4,7 +4,7 @@ import { Text } from '../Text';
 import { useTheme } from 'styled-components/native';
 import Divider from '../Divider';
 
-const Empty = () => {
+const ErrorContent = () => {
   const theme = useTheme();
   return (
     <Container>
@@ -32,4 +32,4 @@ const Empty = () => {
   );
 };
 
-export default Empty;
+export default ErrorContent;
