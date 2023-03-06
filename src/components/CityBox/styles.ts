@@ -5,7 +5,6 @@ export const ContainerItem = styled.TouchableOpacity`
   width: 155px;
   padding: 12px;
   border-radius: 20px;
-  margin: 10px;
 `;
 
 export const ContainerTemperature = styled.View`
