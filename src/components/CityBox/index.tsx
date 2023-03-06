@@ -34,7 +34,7 @@ const CityBox = ({ data }: ICityBox) => {
     <Container>
       {data.map(item => (
         <ContainerItem
-          key={item.id}
+          key={item.id + Math.random()}
           onPress={() =>
             navigation.navigate('home/moredays', { city: item.name })
           }
