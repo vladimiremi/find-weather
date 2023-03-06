@@ -15,17 +15,23 @@ import { AntDesign } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 
 import { FindWeatherAPI } from '../../services/FindWeatherAPI';
+import { ActivityIndicator } from 'react-native';
 
 function Search() {
   const theme = useTheme();
   const [search, useSearch] = useState('');
   const [cities, setCities] = useState<ICityDataProps[]>();
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleSearchCity = async (city: string) => {
     try {
+      setIsLoading(true);
       const resp = await FindWeatherAPI.getSearch(city);
       setCities(resp.data);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
   };
   return (
@@ -49,6 +55,13 @@ function Search() {
           />
         </ContainerIconLocation>
       </ContainerSearch>
+
+      {isLoading && (
+        <>
+          <Divider top={40} />
+          <ActivityIndicator size="small" color={theme.COLORS.WHITE} />
+        </>
+      )}
 
       <Divider top={42} />
       {!!cities?.length ? <CityBox data={cities} /> : <Empty />}
