@@ -20,7 +20,6 @@ import RainingCloudPNG from '../../assets/images/raining-cloud-miniature.png';
 import { WeatherDescription } from '../../components/WeatherDescription';
 import CardDayHourTemperature from '../../components/CardDayHourTemperature';
 import { useRoute } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 interface RouteParams {
   city: string;
 }
@@ -30,17 +29,6 @@ function MoreDays() {
   const route = useRoute();
 
   const { city } = route.params as RouteParams;
-
-  useEffect(() => {
-    (async () => {
-      try {
-        console.log(city);
-        await AsyncStorage.setItem('@city', city);
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  });
 
   const dataWeatherDescription = [
     {
