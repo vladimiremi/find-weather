@@ -26,6 +26,7 @@ import WindMiniaturePNG from '../../assets/images/wind-miniature.png';
 import RainingCloudPNG from '../../assets/images/raining-cloud-miniature.png';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getStoreData } from '../../storage';
 
 const dataWeatherDescription = [
   {
@@ -88,8 +89,7 @@ function Home() {
   useEffect(() => {
     (async () => {
       try {
-        const value = await AsyncStorage.getItem('@city');
-
+        const value = await getStoreData({storageKey: 'city'});
         setIsFirstAccess(value);
       } catch (error) {}
     })();
