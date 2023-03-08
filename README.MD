@@ -35,4 +35,4 @@
 - [x] Salvar a consulta da cidade ou país no Storage
 - [] Remover os dados fictícios da Home e consumir os dados da API
 - [] Verificar se o usuário já passou pela tela “Boas vindas” uma vez e, na próxima vez, exibir a tela Home diretamente
-- [] Formatar a data para o padrão brasileiro 
+- [x] Formatar a data para o padrão brasileiro 

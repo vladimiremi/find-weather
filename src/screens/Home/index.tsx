@@ -29,6 +29,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getStoreData } from '../../storage';
 import { FindWeatherAPI } from '../../services/FindWeatherAPI';
 import {IForecastData} from '../../utils/search.interce'
+import { formatDate } from '../../utils/formatDate';
 
 const dataWeatherDescription = [
   {
@@ -86,7 +87,7 @@ const dataCardHourTemperature = [
 function Home() {
   const theme = useTheme();
   const navigation = useNavigation();
-  const [isFirstAccess, setIsFirstAccess] = useState<any>();
+  const [city, setCity] = useState<any>();
   const [response, setResponse] = useState<IForecastData>(null);
 
 
@@ -94,7 +95,7 @@ function Home() {
     (async () => {
       try {
         const value = await getStoreData({storageKey: 'city'});
-        setIsFirstAccess(value);
+        setCity(value);
         const resp = await FindWeatherAPI.getForecast(value);
         const {forecast} = resp.data
 
@@ -153,7 +154,7 @@ function Home() {
 
   return (
     <>
-      {!isFirstAccess ? (
+      {!city ? (
         <Empty />
       ) : (
         <Container>
@@ -171,7 +172,7 @@ function Home() {
                 color={theme.COLORS.WHITE}
                 style={{ lineHeight: 23 }}
               >
-                A Coruña, Espanha
+                {`${city}, ${'falta colocar'}`}
               </Text>
               <Text
                 fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
@@ -179,7 +180,7 @@ function Home() {
                 color={theme.COLORS.GRAY_100}
                 style={{ lineHeight: 20 }}
               >
-                Domingo, 01 Jan de 2023
+                {formatDate(response.date)}
               </Text>
             </ContainerCityName>
           </ContainerCity>
