@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 import React, { useEffect } from 'react';
 import { useTheme } from 'styled-components/native';
 import Divider from '../../components/Divider';
@@ -27,6 +27,8 @@ import RainingCloudPNG from '../../assets/images/raining-cloud-miniature.png';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getStoreData } from '../../storage';
+import { FindWeatherAPI } from '../../services/FindWeatherAPI';
+import {IForecastData} from '../../utils/search.interce'
 
 const dataWeatherDescription = [
   {
@@ -85,15 +87,69 @@ function Home() {
   const theme = useTheme();
   const navigation = useNavigation();
   const [isFirstAccess, setIsFirstAccess] = useState<any>();
+  const [response, setResponse] = useState<IForecastData>(null);
+
 
   useEffect(() => {
     (async () => {
       try {
         const value = await getStoreData({storageKey: 'city'});
         setIsFirstAccess(value);
+        const resp = await FindWeatherAPI.getForecast(value);
+        const {forecast} = resp.data
+
+        const [forecastday]= forecast.forecastday;
+
+        const dataHome = {
+          date: forecastday.date,
+          date_epoch: forecastday.date_epoch,
+          day: {
+            maxtemp_c: forecastday.day.maxtemp_c,
+            maxtemp_f: forecastday.day.maxtemp_f,
+            mintemp_c: forecastday.day.mintemp_c,
+            mintemp_f: forecastday.day.mintemp_f,
+            avgtemp_c: forecastday.day.avgtemp_c,
+            avgtemp_f: forecastday.day.avgtemp_f,
+            maxwind_mph: forecastday.day.maxwind_mph,
+            maxwind_kph: forecastday.day.maxwind_kph,
+            totalprecip_mm: forecastday.day.totalprecip_mm,
+            totalprecip_in: forecastday.day.totalprecip_in,
+            totalsnow_cm: forecastday.day.totalsnow_cm,
+            avgvis_km: forecastday.day.avgvis_km,
+            avgvis_miles: forecastday.day.avgvis_miles,
+            avghumidity: forecastday.day.avghumidity,
+            daily_will_it_rain: forecastday.day.daily_will_it_rain,
+            daily_chance_of_rain: forecastday.day.daily_chance_of_rain,
+            daily_will_it_snow: forecastday.day.daily_will_it_snow,
+            daily_chance_of_snow: forecastday.day.daily_chance_of_snow,
+            condition: forecastday.day.condition,
+            uv: forecastday.day.uv,
+          },
+          astro: {
+            sunrise: forecastday.astro.sunrise,
+            sunset: forecastday.astro.sunset,
+            moonrise: forecastday.astro.moonrise,
+            moonset: forecastday.astro.moonset,
+            moon_phase: forecastday.astro.moon_phase,
+            moon_illumination: forecastday.astro.moon_illumination,
+          },
+          hour: forecastday.hour,
+        }
+        setResponse(dataHome)
+        
+        
       } catch (error) {}
     })();
   }, []);
+
+  if(!response){
+    return  (
+      <Container>
+        <Divider top={40} />
+        <ActivityIndicator size="small" color={theme.COLORS.WHITE} />
+        </Container>
+    )
+  }
 
   return (
     <>
@@ -134,8 +190,8 @@ function Home() {
           </ContainerImage>
 
           <Temperature
-            maxTemp={23}
-            minTemp={18}
+            maxTemp={response.day.maxtemp_c}
+            minTemp={response.day.mintemp_c}
             maxTempFontSize={theme.FONT_SIZE.GIANT}
             minTempFontSize={theme.FONT_SIZE.XL}
           />
@@ -145,7 +201,7 @@ function Home() {
             fontSize={theme.FONT_SIZE.LG}
             color={theme.COLORS.GRAY_100}
           >
-            Chuva Moderada
+            {response?.day?.condition?.text}
           </Text>
 
           <Divider top={45} />
