@@ -1,8 +1,10 @@
 import { ImageSourcePropType } from 'react-native';
 import { useTheme } from 'styled-components/native';
 import { formatDate, getHourAndMinute } from '../../utils/formatDate';
+
 import { IDayData } from '../../utils/search.interce';
 import Divider from '../Divider';
+
 import { Text } from '../Text';
 import { Container, ContainerCard, Icon, ContainerTemperature } from './styles';
 
@@ -24,7 +26,6 @@ export const CardHourTemperature = ({ data, teste }: ICardHourTemperatureData) =
   return (
     <Container>
       {teste.slice(0, 4).map((item, index) => {
-        console.log(item.condition.icon)
         return (
           <ContainerCard key={index}>
             <ContainerTemperature>
@@ -45,7 +46,7 @@ export const CardHourTemperature = ({ data, teste }: ICardHourTemperatureData) =
               </Text>
             </ContainerTemperature>
             <Divider top={8} />
-            <Icon source={{ uri: item.condition.icon }} />
+            <Icon source={{ uri: `https:${item.condition.icon}` }} />
             <Divider top={9} />
 
             <Text
