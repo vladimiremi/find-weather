@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, RefreshControl, TouchableOpacity, View } from 'react-native';
 import React, { useEffect } from 'react';
 import { useTheme } from 'styled-components/native';
 import Divider from '../../components/Divider';
@@ -91,92 +91,99 @@ function Home() {
   const [city, setCity] = useState('');
   const [response, setResponse] = useState<IForecastData>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
 
-  const getInfos = async (value: string) => {
-    const resp = await FindWeatherAPI.getForecast(value);
-    const { forecast } = resp.data
 
-    const [forecastday] = forecast.forecastday;
+  const getInfos = async () => {
+    const value = await getStoreData({ storageKey: 'city' });
+    setCity(value);
+    if (value) {
+      const resp = await FindWeatherAPI.getForecast(value);
 
-    const dataHome = {
-      date: forecastday.date,
-      date_epoch: forecastday.date_epoch,
-      day: {
-        maxtemp_c: forecastday.day.maxtemp_c,
-        maxtemp_f: forecastday.day.maxtemp_f,
-        mintemp_c: forecastday.day.mintemp_c,
-        mintemp_f: forecastday.day.mintemp_f,
-        avgtemp_c: forecastday.day.avgtemp_c,
-        avgtemp_f: forecastday.day.avgtemp_f,
-        maxwind_mph: forecastday.day.maxwind_mph,
-        maxwind_kph: forecastday.day.maxwind_kph,
-        totalprecip_mm: forecastday.day.totalprecip_mm,
-        totalprecip_in: forecastday.day.totalprecip_in,
-        totalsnow_cm: forecastday.day.totalsnow_cm,
-        avgvis_km: forecastday.day.avgvis_km,
-        avgvis_miles: forecastday.day.avgvis_miles,
-        avghumidity: forecastday.day.avghumidity,
-        daily_will_it_rain: forecastday.day.daily_will_it_rain,
-        daily_chance_of_rain: forecastday.day.daily_chance_of_rain,
-        daily_will_it_snow: forecastday.day.daily_will_it_snow,
-        daily_chance_of_snow: forecastday.day.daily_chance_of_snow,
-        condition: forecastday.day.condition,
-        uv: forecastday.day.uv,
-      },
-      astro: {
-        sunrise: forecastday.astro.sunrise,
-        sunset: forecastday.astro.sunset,
-        moonrise: forecastday.astro.moonrise,
-        moonset: forecastday.astro.moonset,
-        moon_phase: forecastday.astro.moon_phase,
-        moon_illumination: forecastday.astro.moon_illumination,
-      },
-      hour: forecastday.hour,
+      const { forecast } = resp.data
+
+      const [forecastday] = forecast.forecastday;
+
+      const dataHome = {
+        date: forecastday.date,
+        date_epoch: forecastday.date_epoch,
+        day: {
+          maxtemp_c: forecastday.day.maxtemp_c,
+          maxtemp_f: forecastday.day.maxtemp_f,
+          mintemp_c: forecastday.day.mintemp_c,
+          mintemp_f: forecastday.day.mintemp_f,
+          avgtemp_c: forecastday.day.avgtemp_c,
+          avgtemp_f: forecastday.day.avgtemp_f,
+          maxwind_mph: forecastday.day.maxwind_mph,
+          maxwind_kph: forecastday.day.maxwind_kph,
+          totalprecip_mm: forecastday.day.totalprecip_mm,
+          totalprecip_in: forecastday.day.totalprecip_in,
+          totalsnow_cm: forecastday.day.totalsnow_cm,
+          avgvis_km: forecastday.day.avgvis_km,
+          avgvis_miles: forecastday.day.avgvis_miles,
+          avghumidity: forecastday.day.avghumidity,
+          daily_will_it_rain: forecastday.day.daily_will_it_rain,
+          daily_chance_of_rain: forecastday.day.daily_chance_of_rain,
+          daily_will_it_snow: forecastday.day.daily_will_it_snow,
+          daily_chance_of_snow: forecastday.day.daily_chance_of_snow,
+          condition: forecastday.day.condition,
+          uv: forecastday.day.uv,
+        },
+        astro: {
+          sunrise: forecastday.astro.sunrise,
+          sunset: forecastday.astro.sunset,
+          moonrise: forecastday.astro.moonrise,
+          moonset: forecastday.astro.moonset,
+          moon_phase: forecastday.astro.moon_phase,
+          moon_illumination: forecastday.astro.moon_illumination,
+        },
+        hour: forecastday.hour,
+      }
+      setResponse(dataHome)
     }
-    setResponse(dataHome)
+
   }
 
 
   useEffect(() => {
     (async () => {
       try {
-        setIsLoading(true)
-        const value = await getStoreData({ storageKey: 'city' });
-        setCity(value);
+        setRefreshing(true);
 
-        if (value) {
-          getInfos(value)
-        }
+        getInfos()
 
+        setRefreshing(false);
 
-        setIsLoading(false)
 
       } catch (error) {
         console.log(error)
-        setIsLoading(false)
+        setRefreshing(false);
+
 
       }
     })();
   }, []);
 
-  if (isLoading) {
-    return (
-      <Container>
-        <Divider top={40} />
-        <ActivityIndicator size="small" color={theme.COLORS.WHITE} />
-      </Container>
-    )
-  }
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await getInfos()
+    setTimeout(() => setRefreshing(false), 2000);
+  };
+
+
 
   return (
-    <>
+    <Container refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
+
       {!city && (
         <Empty />
       )}
       {
         !!response && (
-          <Container>
+          <>
+
             <Divider top={51} />
             <ContainerCity>
               <Ionicons
@@ -268,10 +275,12 @@ function Home() {
 
             <Divider top={27} />
             <CardHourTemperature data={dataCardHourTemperature} teste={response.hour} />
-          </Container>
+          </>
+
         )
       }
-    </>
+    </Container>
+
   );
 }
 

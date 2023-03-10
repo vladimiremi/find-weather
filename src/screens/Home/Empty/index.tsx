@@ -12,7 +12,7 @@ export function Empty() {
   const navigation = useNavigation();
 
   return (
-    <Container>
+    <>
       <Divider top={74} />
 
       <Text
@@ -40,6 +40,6 @@ export function Empty() {
       >
         Selecione aqui um local e encontre o clima em tempo real
       </Text>
-    </Container>
+    </>
   );
 }

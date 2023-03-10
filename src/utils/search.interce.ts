@@ -39,7 +39,7 @@ export interface ISearchData {
   };
 }
 
-interface IForecastData {
+export interface IForecastData {
   date: string;
   date_epoch: number;
   day: {
@@ -75,7 +75,7 @@ interface IForecastData {
   hour: Array<IDayData>;
 }
 
-interface IDayData {
+export interface IDayData {
   time_epoch: number;
   time: string;
   temp_c: number;
