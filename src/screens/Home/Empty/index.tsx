@@ -6,6 +6,8 @@ import { Container, ContainerImage, Image } from './styles';
 
 import ClimateChange from '../../../assets/images/climate-change.png';
 import { useNavigation } from '@react-navigation/native';
+import { TouchableOpacity } from 'react-native';
+import { removeItemStoreData } from '../../../storage';
 
 export function Empty() {
   const theme = useTheme();
@@ -25,6 +27,17 @@ export function Empty() {
         FindWeather
       </Text>
       <Divider top={105} />
+
+      <TouchableOpacity onPress={() => removeItemStoreData('firstAccess')}>
+        <Text
+          fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
+          fontSize={theme.FONT_SIZE.XS}
+          color={theme.COLORS.GRAY_100}
+          style={{ lineHeight: 20 }}
+        >
+          apagar
+        </Text>
+      </TouchableOpacity>
 
       <ContainerImage>
         <Image source={ClimateChange} />
