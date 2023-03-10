@@ -34,7 +34,7 @@ export const CardHourTemperature = ({ data, teste }: ICardHourTemperatureData) =
                 fontSize={theme.FONT_SIZE.XS}
                 fontFamily={theme.FONT_FAMILY.OVERPASS_BOLD}
               >
-                {item.dewpoint_c}
+                {item.dewpoint_c.toFixed(0)}
               </Text>
               <Text
                 fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
