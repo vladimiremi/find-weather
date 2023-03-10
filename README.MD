@@ -28,3 +28,11 @@
 - [x] Salvar a consulta localmente
 - [x] Criar a navegação do botão de voltar
 - [x] Instalar e configurar biblioteca babel-plugin-inline-dotenv
+
+
+### Tarefas do dia 5:
+- [x] Instalar o Async Storage
+- [x] Salvar a consulta da cidade ou país no Storage
+- [x] Remover os dados fictícios da Home e consumir os dados da API
+- [x] Verificar se o usuário já passou pela tela “Boas vindas” uma vez e, na próxima vez, exibir a tela Home diretamente
+- [x] Formatar a data para o padrão brasileiro 

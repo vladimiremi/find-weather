@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View } from 'react-native';
+import { ActivityIndicator, RefreshControl, TouchableOpacity, View } from 'react-native';
 import React, { useEffect } from 'react';
 import { useTheme } from 'styled-components/native';
 import Divider from '../../components/Divider';
@@ -26,6 +26,11 @@ import WindMiniaturePNG from '../../assets/images/wind-miniature.png';
 import RainingCloudPNG from '../../assets/images/raining-cloud-miniature.png';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getStoreData, removeItemStoreData } from '../../storage';
+import { FindWeatherAPI } from '../../services/FindWeatherAPI';
+import { IForecastData } from '../../utils/search.interce'
+import { formatDate } from '../../utils/formatDate';
+import { Button } from '../../components/Button';
 
 const dataWeatherDescription = [
   {
@@ -83,109 +88,199 @@ const dataCardHourTemperature = [
 function Home() {
   const theme = useTheme();
   const navigation = useNavigation();
-  const [isFirstAccess, setIsFirstAccess] = useState<any>();
+  const [city, setCity] = useState('');
+  const [response, setResponse] = useState<IForecastData>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+
+
+
+  const getInfos = async () => {
+    const value = await getStoreData({ storageKey: 'city' });
+    setCity(value);
+    if (value) {
+      const resp = await FindWeatherAPI.getForecast(value);
+
+      const { forecast } = resp.data
+
+      const [forecastday] = forecast.forecastday;
+
+      const dataHome = {
+        date: forecastday.date,
+        date_epoch: forecastday.date_epoch,
+        day: {
+          maxtemp_c: forecastday.day.maxtemp_c,
+          maxtemp_f: forecastday.day.maxtemp_f,
+          mintemp_c: forecastday.day.mintemp_c,
+          mintemp_f: forecastday.day.mintemp_f,
+          avgtemp_c: forecastday.day.avgtemp_c,
+          avgtemp_f: forecastday.day.avgtemp_f,
+          maxwind_mph: forecastday.day.maxwind_mph,
+          maxwind_kph: forecastday.day.maxwind_kph,
+          totalprecip_mm: forecastday.day.totalprecip_mm,
+          totalprecip_in: forecastday.day.totalprecip_in,
+          totalsnow_cm: forecastday.day.totalsnow_cm,
+          avgvis_km: forecastday.day.avgvis_km,
+          avgvis_miles: forecastday.day.avgvis_miles,
+          avghumidity: forecastday.day.avghumidity,
+          daily_will_it_rain: forecastday.day.daily_will_it_rain,
+          daily_chance_of_rain: forecastday.day.daily_chance_of_rain,
+          daily_will_it_snow: forecastday.day.daily_will_it_snow,
+          daily_chance_of_snow: forecastday.day.daily_chance_of_snow,
+          condition: forecastday.day.condition,
+          uv: forecastday.day.uv,
+        },
+        astro: {
+          sunrise: forecastday.astro.sunrise,
+          sunset: forecastday.astro.sunset,
+          moonrise: forecastday.astro.moonrise,
+          moonset: forecastday.astro.moonset,
+          moon_phase: forecastday.astro.moon_phase,
+          moon_illumination: forecastday.astro.moon_illumination,
+        },
+        hour: forecastday.hour,
+      }
+      setResponse(dataHome)
+    }
+
+  }
+
 
   useEffect(() => {
     (async () => {
       try {
-        const value = await AsyncStorage.getItem('@city');
+        setRefreshing(true);
 
-        setIsFirstAccess(value);
-      } catch (error) {}
+        getInfos()
+
+        setRefreshing(false);
+
+
+      } catch (error) {
+        console.log(error)
+        setRefreshing(false);
+
+
+      }
     })();
   }, []);
 
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await getInfos()
+    setTimeout(() => setRefreshing(false), 2000);
+  };
+
+
+
   return (
-    <>
-      {!isFirstAccess ? (
+    <Container refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
+
+      {!city && (
         <Empty />
-      ) : (
-        <Container>
-          <Divider top={51} />
-          <ContainerCity>
-            <Ionicons
-              name="location-sharp"
-              size={22}
-              color={theme.COLORS.WHITE}
-            />
-            <ContainerCityName>
-              <Text
-                fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
-                fontSize={theme.FONT_SIZE.SM}
+      )}
+      {
+        !!response && (
+          <>
+
+            <Divider top={51} />
+            <ContainerCity>
+              <Ionicons
+                name="location-sharp"
+                size={22}
                 color={theme.COLORS.WHITE}
-                style={{ lineHeight: 23 }}
-              >
-                A Coruña, Espanha
-              </Text>
+              />
+              <ContainerCityName>
+                <Text
+                  fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
+                  fontSize={theme.FONT_SIZE.SM}
+                  color={theme.COLORS.WHITE}
+                  style={{ lineHeight: 23 }}
+                >
+                  {`${city}, ${'falta colocar'}`}
+                </Text>
+                <Text
+                  fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
+                  fontSize={theme.FONT_SIZE.XS}
+                  color={theme.COLORS.GRAY_100}
+                  style={{ lineHeight: 20 }}
+                >
+                  {formatDate(response.date)}
+                </Text>
+              </ContainerCityName>
+            </ContainerCity>
+            <Divider top={43} />
+            <TouchableOpacity onPress={() => removeItemStoreData('city')}>
               <Text
                 fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
                 fontSize={theme.FONT_SIZE.XS}
                 color={theme.COLORS.GRAY_100}
                 style={{ lineHeight: 20 }}
               >
-                Domingo, 01 Jan de 2023
+                apagar
               </Text>
-            </ContainerCityName>
-          </ContainerCity>
-          <Divider top={43} />
+            </TouchableOpacity>
+            <ContainerImage>
+              <Image source={RainingImage} />
+            </ContainerImage>
 
-          <ContainerImage>
-            <Image source={RainingImage} />
-          </ContainerImage>
+            <Temperature
+              maxTemp={response.day.maxtemp_c}
+              minTemp={response.day.mintemp_c}
+              maxTempFontSize={theme.FONT_SIZE.GIANT}
+              minTempFontSize={theme.FONT_SIZE.XL}
+            />
 
-          <Temperature
-            maxTemp={23}
-            minTemp={18}
-            maxTempFontSize={theme.FONT_SIZE.GIANT}
-            minTempFontSize={theme.FONT_SIZE.XL}
-          />
-
-          <Text
-            fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
-            fontSize={theme.FONT_SIZE.LG}
-            color={theme.COLORS.GRAY_100}
-          >
-            Chuva Moderada
-          </Text>
-
-          <Divider top={45} />
-
-          <WeatherDescription data={dataWeatherDescription} />
-
-          <Divider top={45} />
-
-          <ContainerTitle>
             <Text
               fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
-              fontSize={theme.FONT_SIZE.XMD}
-              color={theme.COLORS.WHITE}
+              fontSize={theme.FONT_SIZE.LG}
+              color={theme.COLORS.GRAY_100}
             >
-              Hoje
+              {response?.day?.condition?.text}
             </Text>
 
-            <NextDays onPress={() => {}}>
+            <Divider top={45} />
+
+            <WeatherDescription data={dataWeatherDescription} />
+
+            <Divider top={45} />
+
+            <ContainerTitle>
               <Text
                 fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
-                fontSize={theme.FONT_SIZE.XS}
-                color={theme.COLORS.GRAY_100}
-                textAlign="center"
-                onPress={() => navigation.navigate('home/moredays')}
+                fontSize={theme.FONT_SIZE.XMD}
+                color={theme.COLORS.WHITE}
               >
-                Próximos 5 dias
+                Hoje
               </Text>
-              <AntDesign
-                name="arrowright"
-                size={24}
-                color={theme.COLORS.GRAY_100}
-              />
-            </NextDays>
-          </ContainerTitle>
 
-          <Divider top={27} />
-          <CardHourTemperature data={dataCardHourTemperature} />
-        </Container>
-      )}
-    </>
+              <NextDays onPress={() => { }}>
+                <Text
+                  fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
+                  fontSize={theme.FONT_SIZE.XS}
+                  color={theme.COLORS.GRAY_100}
+                  textAlign="center"
+                  onPress={() => navigation.navigate('home/moredays')}
+                >
+                  Próximos 5 dias
+                </Text>
+                <AntDesign
+                  name="arrowright"
+                  size={24}
+                  color={theme.COLORS.GRAY_100}
+                />
+              </NextDays>
+            </ContainerTitle>
+
+            <Divider top={27} />
+            <CardHourTemperature data={dataCardHourTemperature} teste={response.hour} />
+          </>
+
+        )
+      }
+    </Container>
+
   );
 }
 

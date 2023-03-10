@@ -20,4 +20,7 @@ export const ContainerTemperature = styled.View`
   align-items: center;
 `;
 
-export const Icon = styled.Image``;
+export const Icon = styled.Image`
+width: 39px;
+  height: 27px;
+`;

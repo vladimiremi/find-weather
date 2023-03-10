@@ -6,10 +6,12 @@ import logoImage from '../../assets/images/cloud-and-thunder.png';
 import { Text } from '../../components/Text';
 import { Button } from '../../components/Button';
 import Divider from '../../components/Divider';
-import { useNavigation } from '@react-navigation/native';
+import { setStoreData } from '../../storage';
+import { userStatus } from '../../context/userContext';
 
 const LetterBold = () => {
   const theme = useTheme();
+
   return (
     <Text
       fontFamily={theme.FONT_FAMILY.OVERPASS_BOLD}
@@ -22,8 +24,8 @@ const LetterBold = () => {
 };
 
 function Welcome() {
-  const navigation = useNavigation();
   const theme = useTheme();
+  const { setFirstAccess } = userStatus();
 
   return (
     <Container>
@@ -61,14 +63,17 @@ function Welcome() {
         borderColor={theme.COLORS.DARK_300}
         borderRadius={18}
         height={54}
-        onPress={() => {}}
+        onPress={() => { }}
       >
         <Text
           fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
           fontSize={theme.FONT_SIZE.MD}
           color={theme.COLORS.WHITE}
           textAlign="center"
-          onPress={() => navigation.navigate('home')}
+          onPress={() => {
+            setStoreData({ storageKey: 'firstAccess', value: 'true' })
+            setFirstAccess(true)
+          }}
         >
           Iniciar
         </Text>
