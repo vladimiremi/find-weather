@@ -14,7 +14,6 @@ export const getStoreData= async ({storageKey}:IGetStoreData) => {
   try {
     const value = await AsyncStorage.getItem(`@${storageKey}`)
     if(value !== null) {
-      console.log('SALVED => ', value)
       return value
     }
   } catch(e) {
@@ -32,5 +31,15 @@ export const setStoreData = async ({storageKey, value}:ISetStoreData) => {
     await AsyncStorage.setItem(`@${storageKey}`, value)
   } catch (error) {
     console.log(error)
+  }
+}
+
+
+export const removeItemStoreData = async (item:string)=> {
+  try {
+    await AsyncStorage.removeItem(`@${item}`);
+    console.log('Item removido com sucesso!');
+  } catch (error) {
+    console.error(error);
   }
 }
