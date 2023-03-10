@@ -2,6 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 enum StorageKeys {
   city,
+  firstAccess
 }
 type StorageKeyProps = keyof typeof StorageKeys;
 
@@ -35,7 +36,7 @@ export const setStoreData = async ({storageKey, value}:ISetStoreData) => {
 }
 
 
-export const removeItemStoreData = async (item:string)=> {
+export const removeItemStoreData = async (item:StorageKeyProps)=> {
   try {
     await AsyncStorage.removeItem(`@${item}`);
     console.log('Item removido com sucesso!');
