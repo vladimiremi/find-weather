@@ -16,7 +16,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import { FindWeatherAPI } from '../../services/FindWeatherAPI';
 import { ActivityIndicator } from 'react-native';
-import { ISearchData } from '../../utils/search.interce';
+import { ISearchData } from '../../utils/search.interface';
 import { setStoreData } from '../../storage';
 
 function Search() {
@@ -52,7 +52,7 @@ function Search() {
       });
       setIsLoading(false);
       setIsError(false);
-      setStoreData({storageKey: 'city', value: location.name })
+      setStoreData({ storageKey: 'city', value: location.name })
     } catch (error) {
       console.log(error);
       setIsLoading(false);

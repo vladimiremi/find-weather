@@ -29,7 +29,7 @@ import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/nativ
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getStoreData, removeItemStoreData } from '../../storage';
 import { FindWeatherAPI } from '../../services/FindWeatherAPI';
-import { ICurrent, IForecastData, ILocation, ISearchData } from '../../utils/search.interce'
+import { ICurrent, IForecastData, ILocation, ISearchData } from '../../utils/search.interface'
 import { formatDate } from '../../utils/formatDate';
 import { Button } from '../../components/Button';
 
