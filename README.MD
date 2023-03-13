@@ -36,3 +36,9 @@
 - [x] Remover os dados fictícios da Home e consumir os dados da API
 - [x] Verificar se o usuário já passou pela tela “Boas vindas” uma vez e, na próxima vez, exibir a tela Home diretamente
 - [x] Formatar a data para o padrão brasileiro 
+
+### Tarefas do dia 6: 
+- [] Utilizar os ícones de acordo com cada descrição da temperatura que você receberá das APIs WeatherApi e OpenWeather
+- [] Utilizar a API OpenWeather para visualizar o clima dos próximos 5 dias da cidade selecionada
+- [] Utilizar a API OpenCageData para receber o código do país da cidade selecionada e usar o resultado para a chamada da API que receberá o clima dos próximos 5 dias em uma certa cidade
+- [] Configurar as rotas BottomTabs
