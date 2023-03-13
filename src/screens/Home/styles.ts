@@ -13,6 +13,9 @@ export const ContainerCity = styled.View`
   flex-direction: row;
   justify-content: center;
 `;
+export const Separator = styled.View`
+  margin-right: 10px;
+`;
 
 export const ContainerCityName = styled.View`
   align-items: flex-start;
