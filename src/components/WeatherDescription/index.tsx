@@ -26,7 +26,7 @@ export const WeatherDescription = ({ data }: IWeatherData) => {
       {data.map((item, index) => (
         <React.Fragment key={item.id}>
           <ContainerItem>
-            <Icon source={DropMiniature} />
+            <Icon source={item.icon} />
             <Divider top={6} />
             <Text
               fontSize={theme.FONT_SIZE.XS}
