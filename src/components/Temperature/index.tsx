@@ -7,7 +7,7 @@ import {
 } from './styles';
 
 interface ITemperature {
-  minTemp: number;
+  minTemp?: number;
   maxTemp: number;
   minTempFontSize: number;
   maxTempFontSize: number;
@@ -39,23 +39,28 @@ export const Temperature = ({
           °
         </Text>
       </MaxTemperatureContainer>
-      <MinTemperatureContainer>
-        <Text
-          fontFamily={theme.FONT_FAMILY.OVERPASS_BOLD}
-          fontSize={minTempFontSize}
-          color={theme.COLORS.GRAY_100}
-        >
-          {''} / {''} {minTemp.toFixed(0)}
-        </Text>
-        <Text
-          fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
-          fontSize={theme.FONT_SIZE.MD}
-          color={theme.COLORS.GRAY_100}
-          style={{ paddingBottom: 24 }}
-        >
-          º
-        </Text>
-      </MinTemperatureContainer>
+      {
+        !!minTemp && (
+          <MinTemperatureContainer>
+            <Text
+              fontFamily={theme.FONT_FAMILY.OVERPASS_BOLD}
+              fontSize={minTempFontSize}
+              color={theme.COLORS.GRAY_100}
+            >
+              {''} / {''} {minTemp.toFixed(0)}
+            </Text>
+            <Text
+              fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
+              fontSize={theme.FONT_SIZE.MD}
+              color={theme.COLORS.GRAY_100}
+              style={{ paddingBottom: 24 }}
+            >
+              º
+            </Text>
+          </MinTemperatureContainer>
+        )
+      }
+
     </Container>
   );
 };
