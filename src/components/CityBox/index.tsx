@@ -59,7 +59,7 @@ const CityBox = ({ data }: ICityBox) => {
           </Text>
         </ContainerTemperature>
         <ContainerIcon>
-          <Icon source={{ uri: `https:${condition.icon}` }} />
+          {/* <Icon source={{ uri: `https:${condition.icon}` }} /> */}
         </ContainerIcon>
       </ContainerWeather>
 
