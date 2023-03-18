@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTheme } from 'styled-components/native';
 import Divider from '../../components/Divider';
 import { Header } from '../../components/Header';
@@ -20,6 +20,9 @@ import RainingCloudPNG from '../../assets/images/raining-cloud-miniature.png';
 import { WeatherDescription } from '../../components/WeatherDescription';
 import CardDayHourTemperature from '../../components/CardDayHourTemperature';
 import { useRoute } from '@react-navigation/native';
+import { FindOpenWeatherMapAPI } from '../../services/FindOpenWeatherMapAPI';
+import { convertUnixToTimestamp } from '../../utils/formatDate';
+import { IMoreDays } from '../../utils/moreDays.interface';
 interface RouteParams {
   city: string;
 }
@@ -28,7 +31,50 @@ function MoreDays() {
 
   const route = useRoute();
 
+  const [fiveDays, setFiveDays] = useState<IMoreDays[]>([])
+
   const { city } = route.params as RouteParams;
+
+  const getMoreDays = async (inputCity) => {
+    try {
+
+      const resp = await FindOpenWeatherMapAPI.getLastFiveDays({ city: inputCity });
+
+      console.log(resp.data.list[0].weather);
+
+      // setResponse(resp.data);
+
+      const { city, list } = resp.data;
+
+
+      const allDays = list.map(day => {
+        return {
+          temp_c_max: day.main.temp_max.toFixed(0),
+          temp_c_min: day.main.temp_max.toFixed(0),
+          date: convertUnixToTimestamp(day.dt),
+          condition: {
+            text: day.weather[0].description,
+            icon: day.weather[0].icon
+          }
+        }
+      })
+
+      setFiveDays(allDays)
+
+      console.log(allDays);
+
+
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    (async () => {
+      getMoreDays(city)
+    })()
+  }, [])
 
   const dataWeatherDescription = [
     {
@@ -150,7 +196,7 @@ function MoreDays() {
       <Divider top={42} />
 
       <ContainerDays>
-        <CardDayHourTemperature />
+        <CardDayHourTemperature data={fiveDays} />
       </ContainerDays>
     </Container>
   );
