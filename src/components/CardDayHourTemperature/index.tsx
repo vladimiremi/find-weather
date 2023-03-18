@@ -10,12 +10,17 @@ import {
 } from './styles';
 import WindMiniature from '../../assets/images/wind-miniature.png';
 import Divider from '../Divider';
+import { IMoreDays } from '../../utils/moreDays.interface';
 
-const CardDayHourTemperature = () => {
+interface ICardDayHourTemperature {
+  data: IMoreDays[];
+}
+
+const CardDayHourTemperature = ({ data }: ICardDayHourTemperature) => {
   const theme = useTheme();
   return (
     <Container>
-      {[0, 1, 2, 3, 4].map(() => (
+      {data.map((day) => (
         <ContainerItem>
           <ContainerDate>
             <Text
@@ -23,7 +28,7 @@ const CardDayHourTemperature = () => {
               fontSize={theme.FONT_SIZE.XS}
               fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
             >
-              Seg
+              {day.date.weekday}
             </Text>
             <Text
               color={theme.COLORS.GRAY_100}
@@ -31,7 +36,7 @@ const CardDayHourTemperature = () => {
               fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
             >
               {' '}
-              Jan, 02
+              {day.date.month}, {day.date.day}
             </Text>
           </ContainerDate>
           <ContainerClimate>
@@ -42,7 +47,7 @@ const CardDayHourTemperature = () => {
               fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
               style={{ marginLeft: 2 }}
             >
-              Novoeiro
+              {day.condition.text}
             </Text>
           </ContainerClimate>
 
@@ -52,14 +57,14 @@ const CardDayHourTemperature = () => {
               fontSize={theme.FONT_SIZE.XS}
               fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
             >
-              23º{' '}
+              {day.temp_c_max}º{' '}
             </Text>
             <Text
               color={theme.COLORS.GRAY_100}
               fontSize={theme.FONT_SIZE.XS}
               fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
             >
-              / 12º
+              / {day.temp_c_min}º
             </Text>
           </ContainerTemperature>
         </ContainerItem>
