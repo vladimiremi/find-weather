@@ -3,9 +3,6 @@ import axios from 'axios';
 const apiWeather = axios.create({
   baseURL: 'http://api.weatherapi.com/v1',
   timeout: 1000,
-  params: {
-    key: process.env.KEY_WEATHERAPI,
-  },
 });
 
 const apiOpenWeatherMap = axios.create({
