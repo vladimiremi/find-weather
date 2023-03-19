@@ -4,6 +4,7 @@ import Divider from '../../components/Divider';
 import { Header } from '../../components/Header';
 import {
   ConatinerDay,
+  ConatinerNav,
   Container,
   ContainerDays,
   ContainerTemperature,
@@ -23,6 +24,7 @@ import { useRoute } from '@react-navigation/native';
 import { FindOpenWeatherMapAPI } from '../../services/FindOpenWeatherMapAPI';
 import { convertUnixToTimestamp } from '../../utils/formatDate';
 import { IMoreDays } from '../../utils/moreDays.interface';
+import { ActivityIndicator } from 'react-native';
 interface RouteParams {
   city: string;
 }
@@ -31,48 +33,46 @@ function MoreDays() {
 
   const route = useRoute();
 
-  const [fiveDays, setFiveDays] = useState<IMoreDays[]>([])
+  const [fiveDays, setFiveDays] = useState<IMoreDays[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { city } = route.params as RouteParams;
 
   const getMoreDays = async (inputCity) => {
     try {
-
+      setIsLoading(true)
       const resp = await FindOpenWeatherMapAPI.getLastFiveDays({ city: inputCity });
 
-      console.log(resp.data.list[0].weather);
-
-      // setResponse(resp.data);
-
-      const { city, list } = resp.data;
+      const { list } = resp.data;
 
 
       const allDays = list.map(day => {
         return {
+          humidity: day.main.humidity,
+          rain_probability: day.pop,
+          wind: day.wind.speed,
           temp_c_max: day.main.temp_max.toFixed(0),
-          temp_c_min: day.main.temp_max.toFixed(0),
+          temp_c_min: day.main.temp_min.toFixed(0),
           date: convertUnixToTimestamp(day.dt),
           condition: {
             text: day.weather[0].description,
-            icon: day.weather[0].icon
+            icon: day.weather[0].icon,
           }
         }
       })
 
       setFiveDays(allDays)
-
-      console.log(allDays);
-
-
-
+      setIsLoading(false)
     } catch (error) {
       console.log(error)
+      setIsLoading(false)
+
     }
   }
 
   useEffect(() => {
     (async () => {
-      getMoreDays(city)
+      await getMoreDays(city)
     })()
   }, [])
 
@@ -80,74 +80,30 @@ function MoreDays() {
     {
       id: 1,
       icon: DropMiniaturePNG,
-      value: '24%',
+      value: fiveDays[1]?.humidity + '%',
       text: 'Umidade',
     },
 
     {
       id: 2,
       icon: WindMiniaturePNG,
-      value: '30km/h',
+      value: fiveDays[1]?.wind * 3.6 + 'km/h',
       text: 'Veloc. Vento',
     },
 
     {
       id: 3,
       icon: RainingCloudPNG,
-      value: '76%',
+      value: fiveDays[1]?.rain_probability * 100 + '%',
       text: 'Chuva',
-    },
-  ];
-
-  const dataCardHourTemperature = [
-    {
-      id: 1,
-      icon: DropMiniaturePNG,
-      temperatureValue: 23,
-      weekday: 'Seg',
-      monthAndDay: 'Jan, 02',
-      climate: 'Novoeiro',
-    },
-    {
-      id: 4,
-      icon: RainingCloudPNG,
-      temperatureValue: 8,
-      weekday: 'Ter',
-      monthAndDay: 'Jan, 03',
-      climate: 'Nuvens',
-    },
-    {
-      id: 2,
-      icon: WindMiniaturePNG,
-      temperatureValue: 18,
-      weekday: 'Qua',
-      monthAndDay: 'Jan, 04',
-      climate: 'Céu limpo',
-    },
-
-    {
-      id: 3,
-      icon: RainingCloudPNG,
-      temperatureValue: 8,
-      weekday: 'Qui',
-      monthAndDay: 'Jan, 05',
-      climate: 'Pouca chuva',
-    },
-
-    {
-      id: 4,
-      icon: RainingCloudPNG,
-      temperatureValue: 8,
-      weekday: 'Sex',
-      monthAndDay: 'Jan, 06',
-      climate: 'Nuvens',
     },
   ];
 
   return (
     <Container>
-      <Divider top={37} />
-      <ConatinerDay>
+
+      <ConatinerNav>
+        <Divider top={37} />
         <Divider top={15} />
         <Header
           icon={
@@ -160,44 +116,59 @@ function MoreDays() {
           title="Próximos 5 dias"
         />
 
-        <ContainerWeather>
-          <Image source={Raining} />
+      </ConatinerNav>
 
-          <ContainerTemperature>
-            <Text
-              color={theme.COLORS.GRAY_100}
-              fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
-              fontSize={theme.FONT_SIZE.XMD}
-              style={{ top: 18 }}
-            >
-              Amanhã
-            </Text>
-            <Temperature
-              maxTemp={12}
-              minTemp={17}
-              minTempFontSize={theme.FONT_SIZE.XXL}
-              maxTempFontSize={theme.FONT_SIZE.GIANT}
-            />
-            <Text
-              color={theme.COLORS.GRAY_100}
-              fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
-              fontSize={theme.FONT_SIZE.XMD}
-              style={{ bottom: 18 }}
-            >
-              Novoeiro
-            </Text>
-          </ContainerTemperature>
-        </ContainerWeather>
-        <Divider top={20} />
-        <WeatherDescription data={dataWeatherDescription} />
-        <Divider top={36} />
-      </ConatinerDay>
+      {isLoading ? (
+        <>
+          <Divider top={40} />
+          <ActivityIndicator size="small" color={theme.COLORS.WHITE} />
+        </>
+      ) : (
+        <>
+          <ConatinerDay>
 
-      <Divider top={42} />
 
-      <ContainerDays>
-        <CardDayHourTemperature data={fiveDays} />
-      </ContainerDays>
+            <ContainerWeather>
+              <Image source={Raining} />
+
+              <ContainerTemperature>
+                <Text
+                  color={theme.COLORS.GRAY_100}
+                  fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
+                  fontSize={theme.FONT_SIZE.XMD}
+                  style={{ top: 18 }}
+                >
+                  Amanhã
+                </Text>
+                <Temperature
+                  maxTemp={fiveDays[1]?.temp_c_max}
+                  minTemp={fiveDays[1]?.temp_c_min}
+                  minTempFontSize={theme.FONT_SIZE.XXL}
+                  maxTempFontSize={theme.FONT_SIZE.GIANT}
+                />
+                <Text
+                  color={theme.COLORS.GRAY_100}
+                  fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
+                  fontSize={theme.FONT_SIZE.XMD}
+                  style={{ bottom: 18 }}
+                >
+                  {fiveDays[1]?.condition.text}
+                </Text>
+              </ContainerTemperature>
+            </ContainerWeather>
+            <Divider top={20} />
+            <WeatherDescription data={dataWeatherDescription} />
+            <Divider top={36} />
+          </ConatinerDay>
+
+          <Divider top={42} />
+
+          <ContainerDays>
+            <CardDayHourTemperature data={fiveDays} />
+          </ContainerDays>
+        </>
+      )}
+
     </Container>
   );
 }
