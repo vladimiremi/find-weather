@@ -28,7 +28,7 @@ export const Temperature = ({
           fontSize={maxTempFontSize}
           color={theme.COLORS.WHITE}
         >
-          {maxTemp.toFixed(0)}
+          {maxTemp}
         </Text>
         <Text
           fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
@@ -47,7 +47,7 @@ export const Temperature = ({
               fontSize={minTempFontSize}
               color={theme.COLORS.GRAY_100}
             >
-              {''} / {''} {minTemp.toFixed(0)}
+              {''} / {''} {minTemp}
             </Text>
             <Text
               fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
