@@ -39,6 +39,6 @@
 
 ### Tarefas do dia 6: 
 - [] Utilizar os ícones de acordo com cada descrição da temperatura que você receberá das APIs WeatherApi e OpenWeather
-- [] Utilizar a API OpenWeather para visualizar o clima dos próximos 5 dias da cidade selecionada
+- [x] Utilizar a API OpenWeather para visualizar o clima dos próximos 5 dias da cidade selecionada
 - [] Utilizar a API OpenCageData para receber o código do país da cidade selecionada e usar o resultado para a chamada da API que receberá o clima dos próximos 5 dias em uma certa cidade
 - [x] Configurar as rotas BottomTabs
