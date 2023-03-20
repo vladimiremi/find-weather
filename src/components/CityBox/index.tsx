@@ -9,6 +9,7 @@ import {
 } from './styles';
 import Divider from '../Divider';
 import { useNavigation } from '@react-navigation/native';
+import { WeatherIcons } from '../../utils/weatherIcons';
 
 export interface ICityDataProps {
   location: {
@@ -30,6 +31,7 @@ interface ICityBox {
 }
 
 const CityBox = ({ data }: ICityBox) => {
+  const hours = new Date().getHours();
   const theme = useTheme();
   const navigation = useNavigation();
   const { location, current, condition } = data;
@@ -59,7 +61,7 @@ const CityBox = ({ data }: ICityBox) => {
           </Text>
         </ContainerTemperature>
         <ContainerIcon>
-          {/* <Icon source={{ uri: `https:${condition.icon}` }} /> */}
+          <Icon source={WeatherIcons({ weather: "Chuvisco", hours: hours })} />
         </ContainerIcon>
       </ContainerWeather>
 
