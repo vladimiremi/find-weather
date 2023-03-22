@@ -47,9 +47,9 @@ import IcyFogNight from '../assets/images/icy-fog-night.png'
 
 import MidSnowFastWinds from '../assets/images/mid-snow-fast-winds.png'
 
-import FreezingHeavyRaining from '../assets/images/freezing-heavy-raining.png'
-import FreezingHeavyRainingNight from '../assets/images/freezing-heavy-night.png'
-import FreezingHeavyRainingMiddle from '../assets/images/freezing-heavy-middle.png'
+import FreezingHeavyRaining from '../assets/images/freezing-heavy-raining-night.png'
+import FreezingHeavyRainingNight from '../assets/images/mid-snow-fast-winds.png'
+import FreezingHeavyRainingMiddle from '../assets/images/freezing-heavy-raining-middle.png'
 
 import FreezingLightRain from '../assets/images/freezing-light-rain.png'
 import FreezingLightRainNight from '../assets/images/freezing-light-rain-night.png'
