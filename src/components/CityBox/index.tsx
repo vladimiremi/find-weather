@@ -35,6 +35,7 @@ const CityBox = ({ data }: ICityBox) => {
   const theme = useTheme();
   const navigation = useNavigation();
   const { location, current, condition } = data;
+
   return (
     <ContainerItem
       key={Math.random()}
@@ -61,7 +62,7 @@ const CityBox = ({ data }: ICityBox) => {
           </Text>
         </ContainerTemperature>
         <ContainerIcon>
-          <Icon source={WeatherIcons({ weather: "Chuvisco", hours: hours })} />
+          <Icon source={WeatherIcons({ weather: condition.text, hours })} />
         </ContainerIcon>
       </ContainerWeather>
 

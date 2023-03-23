@@ -1,6 +1,7 @@
 import { ImageSourcePropType } from 'react-native';
 import { useTheme } from 'styled-components/native';
 import { formatDate, getHourAndMinute } from '../../utils/formatDate';
+import { WeatherIcons } from '../../utils/weatherIcons';
 
 import Divider from '../Divider';
 
@@ -12,9 +13,12 @@ interface ICardHourTemperature {
   temperatureValue: number;
   icon: string;
   hour: string;
+  condition: {
+    text: string
+  }
 }
 interface ICardHourTemperatureData {
-  data: ICardHourTemperature[];
+  data: ICardHourTemperature;
 }
 
 
@@ -22,17 +26,15 @@ export const CardHourTemperature = ({ data, }: ICardHourTemperatureData) => {
   const theme = useTheme();
 
   return (
-    <Container>
-      {data.map((item, index) => {
-        return (
-          <ContainerCard key={index}>
+   
+            <ContainerCard>
             <ContainerTemperature>
               <Text
                 color={theme.COLORS.WHITE}
                 fontSize={theme.FONT_SIZE.XS}
                 fontFamily={theme.FONT_FAMILY.OVERPASS_BOLD}
               >
-                {item.temperatureValue}
+                {data.temperatureValue}
               </Text>
               <Text
                 fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
@@ -44,7 +46,7 @@ export const CardHourTemperature = ({ data, }: ICardHourTemperatureData) => {
               </Text>
             </ContainerTemperature>
             <Divider top={8} />
-            <Icon source={{ uri: `https:${item.icon}` }} />
+            <Icon source={WeatherIcons({ weather: data.condition.text, hours: Number(data.hour.split(':')[0]) })} />
             <Divider top={9} />
 
             <Text
@@ -52,11 +54,9 @@ export const CardHourTemperature = ({ data, }: ICardHourTemperatureData) => {
               fontSize={theme.FONT_SIZE.XXXS}
               fontFamily={theme.FONT_FAMILY.OVERPASS_BOLD}
             >
-              {item.hour}
+              {data.hour}
             </Text>
           </ContainerCard>
-        )
-      })}
-    </Container>
+  
   );
 };
