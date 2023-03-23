@@ -26,7 +26,7 @@ export const ContainerImage = styled.View`
 `;
 
 export const Image = styled.Image`
-  width: 172px;
+  width: 152px;
   height: 140px;
 `;
 
