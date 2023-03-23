@@ -7,7 +7,8 @@ export interface IMoreDays {
   date: {
     weekday: string,
     month: string,
-    day: string
+    day: string,
+    hour: string,
   },
   condition: {
     text: string,
