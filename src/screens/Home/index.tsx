@@ -34,37 +34,6 @@ import { formatDate } from '../../utils/formatDate';
 import { Button } from '../../components/Button';
 import { WeatherIcons } from '../../utils/weatherIcons';
 
-
-
-const dataCardHourTemperature = [
-  {
-    id: 1,
-    icon: DropMiniaturePNG,
-    temperatureValue: 23,
-    hour: '09:00',
-  },
-
-  {
-    id: 2,
-    icon: WindMiniaturePNG,
-    temperatureValue: 18,
-    hour: '13:00',
-  },
-
-  {
-    id: 3,
-    icon: RainingCloudPNG,
-    temperatureValue: 8,
-    hour: '17:00',
-  },
-
-  {
-    id: 4,
-    icon: RainingCloudPNG,
-    temperatureValue: 8,
-    hour: '23:00',
-  },
-];
 interface IFullContentData {
   location: ILocation;
   current: ICurrent;
@@ -187,13 +156,13 @@ const FullComponent = ({
           Hoje
         </Text>
 
-        <NextDays onPress={() => { }}>
+        <NextDays onPress={() => navigation.navigate('home/moredays', { city: location.name })}>
           <Text
             fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
             fontSize={theme.FONT_SIZE.XS}
             color={theme.COLORS.GRAY_100}
             textAlign="center"
-            onPress={() => navigation.navigate('home/moredays')}
+          
           >
             Próximos 5 dias
           </Text>
