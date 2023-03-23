@@ -11,6 +11,7 @@ import {
 import WindMiniature from '../../assets/images/wind-miniature.png';
 import Divider from '../Divider';
 import { IMoreDays } from '../../utils/moreDays.interface';
+import { WeatherIcons } from '../../utils/weatherIcons';
 
 interface ICardDayHourTemperature {
   data: IMoreDays[];
@@ -20,27 +21,27 @@ const CardDayHourTemperature = ({ data }: ICardDayHourTemperature) => {
   const theme = useTheme();
   return (
     <Container>
-      {data.map((day) => (
-        <ContainerItem>
+      {data.map((day, index) => (
+        <ContainerItem key={index}>
           <ContainerDate>
             <Text
               color={theme.COLORS.WHITE}
               fontSize={theme.FONT_SIZE.XS}
               fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
             >
-              {day.date.weekday}
+             {day.date.hour}h {day.date.weekday}{' '}
             </Text>
             <Text
               color={theme.COLORS.GRAY_100}
               fontSize={theme.FONT_SIZE.XS}
               fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
             >
-              {' '}
-              {day.date.month}, {day.date.day}
+             
+             {day.date.month}, {day.date.day}
             </Text>
           </ContainerDate>
           <ContainerClimate>
-            <Icon source={WindMiniature} />
+            <Icon source={WeatherIcons({ weather: day.condition.text, hours: Number(day.date.hour) })} />
             <Text
               color={theme.COLORS.GRAY_100}
               fontSize={theme.FONT_SIZE.XS}
