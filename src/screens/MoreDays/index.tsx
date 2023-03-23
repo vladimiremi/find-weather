@@ -25,6 +25,7 @@ import { FindOpenWeatherMapAPI } from '../../services/FindOpenWeatherMapAPI';
 import { convertUnixToTimestamp } from '../../utils/formatDate';
 import { IMoreDays } from '../../utils/moreDays.interface';
 import { ActivityIndicator } from 'react-native';
+import { WeatherIcons } from '../../utils/weatherIcons';
 interface RouteParams {
   city: string;
 }
@@ -46,7 +47,7 @@ function MoreDays() {
       const { list } = resp.data;
 
 
-      const allDays = list.map(day => {
+      const allDays = list.slice(5).map(day => {
         return {
           humidity: day.main.humidity,
           rain_probability: day.pop,
@@ -129,7 +130,7 @@ function MoreDays() {
 
 
             <ContainerWeather>
-              <Image source={Raining} />
+              <Image source={WeatherIcons({ weather: fiveDays[0]?.condition.text, hours: Number(fiveDays[0].date.hour) })} />
 
               <ContainerTemperature>
                 <Text
@@ -141,8 +142,8 @@ function MoreDays() {
                   Amanhã
                 </Text>
                 <Temperature
-                  maxTemp={fiveDays[1]?.temp_c_max}
-                  minTemp={fiveDays[1]?.temp_c_min}
+                  maxTemp={fiveDays[0]?.temp_c_max}
+                  minTemp={fiveDays[0]?.temp_c_min}
                   minTempFontSize={theme.FONT_SIZE.XXL}
                   maxTempFontSize={theme.FONT_SIZE.GIANT}
                 />
@@ -152,7 +153,7 @@ function MoreDays() {
                   fontSize={theme.FONT_SIZE.XMD}
                   style={{ bottom: 18 }}
                 >
-                  {fiveDays[1]?.condition.text}
+                  {fiveDays[0]?.condition.text}
                 </Text>
               </ContainerTemperature>
             </ContainerWeather>
