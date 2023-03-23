@@ -32,6 +32,7 @@ export const convertUnixToTimestamp = (unixTimestamp)=>{
   weekday: 'short',
   day: 'numeric',
   month: 'short',
+  hour: 'numeric',
   });
 
   const formattedTime  = formatDataIntl.format(date);
@@ -42,6 +43,7 @@ export const convertUnixToTimestamp = (unixTimestamp)=>{
   return {
     weekday: finishDate[0],
     month: finishDate[3],
-    day: finishDate[1]
+    day: finishDate[1],
+    hour: finishDate[4]
   };
 }
