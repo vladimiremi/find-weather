@@ -1,3 +1,5 @@
+![Alt text](assets/logo.png)
+
 ### Tarefas do dia 1:
 
 - [x] Criar um novo projeto utilizando o Expo
