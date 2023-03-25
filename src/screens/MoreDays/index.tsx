@@ -88,7 +88,7 @@ function MoreDays() {
     {
       id: 2,
       icon: WindMiniaturePNG,
-      value: fiveDays[1]?.wind * 3.6 + 'km/h',
+      value: Math.floor(fiveDays[1]?.wind * 3.6 )+ ' km/h',
       text: 'Veloc. Vento',
     },
 
@@ -130,7 +130,7 @@ function MoreDays() {
 
 
             <ContainerWeather>
-              <Image source={WeatherIcons({ weather: fiveDays[0]?.condition.text, hours: Number(fiveDays[0].date.hour) })} />
+              <Image source={WeatherIcons({ weather: fiveDays[0]?.condition.text, hours: Number(fiveDays[0]?.date.hour) })} />
 
               <ContainerTemperature>
                 <Text
