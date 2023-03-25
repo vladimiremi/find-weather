@@ -32,38 +32,8 @@ import { FindWeatherAPI } from '../../services/FindWeatherAPI';
 import { ICurrent, IForecastData, ILocation, ISearchData } from '../../utils/search.interface'
 import { formatDate } from '../../utils/formatDate';
 import { Button } from '../../components/Button';
+import { WeatherIcons } from '../../utils/weatherIcons';
 
-
-
-const dataCardHourTemperature = [
-  {
-    id: 1,
-    icon: DropMiniaturePNG,
-    temperatureValue: 23,
-    hour: '09:00',
-  },
-
-  {
-    id: 2,
-    icon: WindMiniaturePNG,
-    temperatureValue: 18,
-    hour: '13:00',
-  },
-
-  {
-    id: 3,
-    icon: RainingCloudPNG,
-    temperatureValue: 8,
-    hour: '17:00',
-  },
-
-  {
-    id: 4,
-    icon: RainingCloudPNG,
-    temperatureValue: 8,
-    hour: '23:00',
-  },
-];
 interface IFullContentData {
   location: ILocation;
   current: ICurrent;
@@ -82,6 +52,8 @@ const FullComponent = ({
   const theme = useTheme()
   const { humidity, wind_kph } = current;
   const { daily_chance_of_rain } = forecast.forecastday[0].day;
+  const hours = new Date().getHours()
+
   const navigation = useNavigation()
 
   const dataWeatherDescription = [
@@ -106,6 +78,7 @@ const FullComponent = ({
       text: "Chuva",
     },
   ];
+
 
   return (
     <>
@@ -148,7 +121,7 @@ const FullComponent = ({
         </Text>
       </TouchableOpacity>
       <ContainerImage>
-        <Image source={RainingImage} />
+        <Image source={WeatherIcons({ weather: current.condition.text, hours })} />
       </ContainerImage>
 
       <Temperature
@@ -183,13 +156,13 @@ const FullComponent = ({
           Hoje
         </Text>
 
-        <NextDays onPress={() => { }}>
+        <NextDays onPress={() => navigation.navigate('home/moredays', { city: location.name })}>
           <Text
             fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
             fontSize={theme.FONT_SIZE.XS}
             color={theme.COLORS.GRAY_100}
             textAlign="center"
-            onPress={() => navigation.navigate('home/moredays')}
+          
           >
             Próximos 5 dias
           </Text>
@@ -209,15 +182,15 @@ const FullComponent = ({
         keyExtractor={(_, index) => String(index)}
         ItemSeparatorComponent={() => <Separator />}
         renderItem={({ item, index }) => {
-          const dataCardHourTemperature = [
+          const dataCardHourTemperature = 
             {
               id: index,
               icon: item.condition.icon,
               temperatureValue: Math.floor(item.temp_c),
               hour: item.time.substring(11, 16),
-            },
-          ];
-
+              condition: item.condition,
+            }
+        
           return (
             <CardHourTemperature data={dataCardHourTemperature} key={index} />
           )

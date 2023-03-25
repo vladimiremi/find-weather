@@ -22,4 +22,5 @@ export const ContainerTemperature = styled.View`
 
 export const Icon = styled.Image`
   width: 30px;
+  height: 30px;
 `;

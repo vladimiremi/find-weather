@@ -1,8 +1,16 @@
+import { ScrollViewProps } from 'react-native';
 import styled from 'styled-components/native';
 
-export const Container = styled.View`
+export const Container = styled.ScrollView.attrs<ScrollViewProps>(() => ({
+  showsVerticalScrollIndicator: false,
+}))`
   flex: 1;
   background-color: ${({ theme }) => theme.COLORS.DARK};
+`;
+
+export const ConatinerNav = styled.View`
+  background-color: ${({ theme }) => theme.COLORS.DARK_400};
+  padding: 0 16px;
 `;
 
 export const ContainerWeather = styled.View`

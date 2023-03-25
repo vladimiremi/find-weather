@@ -10,39 +10,45 @@ import {
 } from './styles';
 import WindMiniature from '../../assets/images/wind-miniature.png';
 import Divider from '../Divider';
+import { IMoreDays } from '../../utils/moreDays.interface';
+import { WeatherIcons } from '../../utils/weatherIcons';
 
-const CardDayHourTemperature = () => {
+interface ICardDayHourTemperature {
+  data: IMoreDays[];
+}
+
+const CardDayHourTemperature = ({ data }: ICardDayHourTemperature) => {
   const theme = useTheme();
   return (
     <Container>
-      {[0, 1, 2, 3, 4].map(() => (
-        <ContainerItem>
+      {data.map((day, index) => (
+        <ContainerItem key={index}>
           <ContainerDate>
             <Text
               color={theme.COLORS.WHITE}
               fontSize={theme.FONT_SIZE.XS}
               fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
             >
-              Seg
+             {day.date.hour}h {day.date.weekday}{' '}
             </Text>
             <Text
               color={theme.COLORS.GRAY_100}
               fontSize={theme.FONT_SIZE.XS}
               fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
             >
-              {' '}
-              Jan, 02
+             
+             {day.date.month}, {day.date.day}
             </Text>
           </ContainerDate>
           <ContainerClimate>
-            <Icon source={WindMiniature} />
+            <Icon source={WeatherIcons({ weather: day.condition.text, hours: Number(day.date.hour) })} />
             <Text
               color={theme.COLORS.GRAY_100}
               fontSize={theme.FONT_SIZE.XS}
               fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
               style={{ marginLeft: 2 }}
             >
-              Novoeiro
+              {day.condition.text}
             </Text>
           </ContainerClimate>
 
@@ -52,14 +58,14 @@ const CardDayHourTemperature = () => {
               fontSize={theme.FONT_SIZE.XS}
               fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
             >
-              23º{' '}
+              {day.temp_c_max}º{' '}
             </Text>
             <Text
               color={theme.COLORS.GRAY_100}
               fontSize={theme.FONT_SIZE.XS}
               fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
             >
-              / 12º
+              / {day.temp_c_min}º
             </Text>
           </ContainerTemperature>
         </ContainerItem>
