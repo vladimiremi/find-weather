@@ -2,7 +2,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 enum StorageKeys {
   city,
-  firstAccess
+  firstAccess,
+  country,
 }
 type StorageKeyProps = keyof typeof StorageKeys;
 
@@ -22,7 +23,6 @@ export const getStoreData= async ({storageKey}:IGetStoreData) => {
   }
 }
 
-
 interface ISetStoreData {
   storageKey: StorageKeyProps,
   value: string
@@ -34,7 +34,6 @@ export const setStoreData = async ({storageKey, value}:ISetStoreData) => {
     console.log(error)
   }
 }
-
 
 export const removeItemStoreData = async (item:StorageKeyProps)=> {
   try {
