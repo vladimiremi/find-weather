@@ -26,6 +26,7 @@ import { convertUnixToTimestamp } from '../../utils/formatDate';
 import { IMoreDays } from '../../utils/moreDays.interface';
 import { ActivityIndicator } from 'react-native';
 import { WeatherIcons } from '../../utils/weatherIcons';
+import { getStoreData } from '../../storage';
 interface RouteParams {
   city: string;
 }
@@ -42,7 +43,9 @@ function MoreDays() {
   const getMoreDays = async (inputCity) => {
     try {
       setIsLoading(true)
-      const resp = await FindOpenWeatherMapAPI.getLastFiveDays({ city: inputCity });
+      const storedCountryCode = await getStoreData({storageKey: 'country'});
+
+      const resp = await FindOpenWeatherMapAPI.getLastFiveDays({ city: inputCity, countryCode:  storedCountryCode});
 
       const { list } = resp.data;
 
