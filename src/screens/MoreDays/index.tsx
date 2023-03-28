@@ -95,7 +95,7 @@ function MoreDays() {
     {
       id: 3,
       icon: RainingCloudPNG,
-      value: fiveDays[1]?.rain_probability * 100 + '%',
+      value: Math.floor(fiveDays[1]?.rain_probability * 100) + '%',
       text: 'Chuva',
     },
   ];
