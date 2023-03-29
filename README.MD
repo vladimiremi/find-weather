@@ -48,3 +48,10 @@
 ### Tarefas do dia 7: 
 - [x] Criar Splash Screen
 - [x] Inserir o ícone do app
+
+
+### Tarefas extras: 
+- [ ] Favoritar buscas
+- [ ] Inserir animações
+- [ ] Criar login social
+- [ ] Adicionar testes unitários
