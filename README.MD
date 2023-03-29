@@ -1,4 +1,11 @@
-![Alt text](assets/logo.png)
+<div align='center'>
+<h1 align="center">Find Weather</h1>
+<Img width="50%" src="assets/logo.png" />
+
+</div>
+
+### Preview:
+https://user-images.githubusercontent.com/41305527/228511875-a1bcf1a0-4f78-4907-a43d-5726fb8a1339.mp4
 
 ### Tarefas do dia 1:
 
