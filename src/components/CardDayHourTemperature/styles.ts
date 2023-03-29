@@ -10,9 +10,15 @@ export const ContainerItem = styled.View`
 
 export const ContainerDate = styled.View`
   flex-direction: row;
+  margin-right: 12px;
+  width: 115px;
 `;
 
 export const ContainerClimate = styled.View`
+  flex-direction: row;
+`;
+
+export const ContainerDateAndClimate = styled.View`
   flex-direction: row;
 `;
 

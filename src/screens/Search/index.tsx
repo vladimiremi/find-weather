@@ -53,6 +53,18 @@ function Search() {
       setIsLoading(false);
       setIsError(false);
       setStoreData({ storageKey: 'city', value: location.name })
+
+      fetch(
+        `https://api.opencagedata.com/geocode/v1/json?key=${ process.env.KEY_OPENCAGEDATA}&q=${location.country}`
+      )
+        .then((response) => response.json())
+        .then(
+          async (data) =>
+          await setStoreData({storageKey: 'country', value: data.results[0].components.country_code})
+        )
+        .catch((error) =>
+          console.log("Error calling open cage data API: ", error)
+        );
     } catch (error) {
       console.log(error);
       setIsLoading(false);

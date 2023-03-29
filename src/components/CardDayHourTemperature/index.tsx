@@ -4,6 +4,7 @@ import {
   Container,
   ContainerClimate,
   ContainerDate,
+  ContainerDateAndClimate,
   ContainerItem,
   ContainerTemperature,
   Icon,
@@ -23,7 +24,8 @@ const CardDayHourTemperature = ({ data }: ICardDayHourTemperature) => {
     <Container>
       {data.map((day, index) => (
         <ContainerItem key={index}>
-          <ContainerDate>
+          <ContainerDateAndClimate>
+              <ContainerDate>
             <Text
               color={theme.COLORS.WHITE}
               fontSize={theme.FONT_SIZE.XS}
@@ -51,6 +53,8 @@ const CardDayHourTemperature = ({ data }: ICardDayHourTemperature) => {
               {day.condition.text}
             </Text>
           </ContainerClimate>
+          </ContainerDateAndClimate>
+        
 
           <ContainerTemperature>
             <Text
