@@ -44,3 +44,14 @@
 - [x] Utilizar a API OpenWeather para visualizar o clima dos próximos 5 dias da cidade selecionada
 - [ ] Utilizar a API OpenCageData para receber o código do país da cidade selecionada e usar o resultado para a chamada da API que receberá o clima dos próximos 5 dias em uma certa cidade
 - [x] Configurar as rotas BottomTabs
+
+### Tarefas do dia 7: 
+- [x] Criar Splash Screen
+- [x] Inserir o ícone do app
+
+
+### Tarefas extras: 
+- [ ] Favoritar buscas
+- [ ] Inserir animações
+- [ ] Criar login social
+- [ ] Adicionar testes unitários
