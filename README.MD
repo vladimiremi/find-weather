@@ -1,11 +1,49 @@
 <div align='center'>
 <h1 align="center">Find Weather</h1>
-<Img width="50%" src="assets/logo.png" />
+<Img width="20%" src="assets/logo.png" />
+
+<p>Esse projeto foi desenvolvido para completar o desafio #7DayOfCode desenvolvido pela Ilda Neta em parceria com a Alura, que na verdade não durou só 7 dias. Foram vários dias, estudando e lendo documentações para conseguir chegar ao fim.</p>
 
 </div>
 
-### Preview:
-https://user-images.githubusercontent.com/41305527/228511875-a1bcf1a0-4f78-4907-a43d-5726fb8a1339.mp4
+# 🤳Preview
+https://user-images.githubusercontent.com/41305527/229100950-7ee0921a-e479-4fc9-ad5e-921a6c7ee5db.mp4
+
+# 🔖 Como iniciar o projeto
+
+### Clonando o projeto
+
+```
+git clone https://github.com/vladimiremi/find-weather.git
+cd find-weather
+npm install
+```
+
+### Startando o projeto
+
+```
+npx expo start
+```
+
+Você vai precisar adicioanar o arquivo .env para pode adicionar as suas KEY:
+```
+KEY_WEATHERAPI=
+
+KEY_OPENWEATHERMAP=
+
+KEY_OPENCAGEDATA=
+```
+
+# 🤔 Como Contribuir
+
+- Fork este repositório;
+- Crie uma branch com sua funcionalidade: `git checkout -b my-feature`;
+- Commit suas auterações: `git commit -m 'feat: My new feature'`;
+- Push para sua branch: `git push origin minha-feature`.
+
+Depois que o merge do seu Pull request for feito, você pode deletar sua branch
+
+# 📋Tarefas
 
 ### Tarefas do dia 1:
 
