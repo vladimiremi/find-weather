@@ -34,6 +34,8 @@ import { formatDate } from '../../utils/formatDate';
 import { Button } from '../../components/Button';
 import { WeatherIcons } from '../../utils/weatherIcons';
 
+const IS_DEVELOPMENT = process.env.ENVIRONMENT === 'development'
+
 interface IFullContentData {
   location: ILocation;
   current: ICurrent;
@@ -110,16 +112,22 @@ const FullComponent = ({
         </ContainerCityName>
       </ContainerCity>
       <Divider top={43} />
-      <TouchableOpacity onPress={() => removeItemStoreData('city')}>
-        <Text
-          fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
-          fontSize={theme.FONT_SIZE.XS}
-          color={theme.COLORS.GRAY_100}
-          style={{ lineHeight: 20 }}
-        >
-          apagar
-        </Text>
-      </TouchableOpacity>
+
+      {
+        IS_DEVELOPMENT && (
+          <TouchableOpacity onPress={() => removeItemStoreData('city')}>
+            <Text
+              fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
+              fontSize={theme.FONT_SIZE.XS}
+              color={theme.COLORS.GRAY_100}
+              style={{ lineHeight: 20 }}
+            >
+              apagar storage
+            </Text>
+          </TouchableOpacity>
+        )
+      }
+    
       <ContainerImage>
         <Image source={WeatherIcons({ weather: current.condition.text, hours })} />
       </ContainerImage>

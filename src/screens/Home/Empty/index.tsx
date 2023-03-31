@@ -9,6 +9,9 @@ import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native';
 import { removeItemStoreData } from '../../../storage';
 
+const IS_DEVELOPMENT = process.env.ENVIRONMENT === 'development'
+
+
 export function Empty() {
   const theme = useTheme();
   const navigation = useNavigation();
@@ -27,17 +30,20 @@ export function Empty() {
         FindWeather
       </Text>
       <Divider top={105} />
-
-      <TouchableOpacity onPress={() => removeItemStoreData('firstAccess')}>
-        <Text
-          fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
-          fontSize={theme.FONT_SIZE.XS}
-          color={theme.COLORS.GRAY_100}
-          style={{ lineHeight: 20 }}
-        >
-          apagar
-        </Text>
-      </TouchableOpacity>
+      {
+        IS_DEVELOPMENT && (
+          <TouchableOpacity onPress={() => removeItemStoreData('firstAccess')}>
+            <Text
+              fontFamily={theme.FONT_FAMILY.OVERPASS_REGULAR}
+              fontSize={theme.FONT_SIZE.XS}
+              color={theme.COLORS.GRAY_100}
+              style={{ lineHeight: 20 }}
+            >
+              apagar storage
+            </Text>
+          </TouchableOpacity>
+        )
+      }
 
       <ContainerImage>
         <Image source={ClimateChange} />
