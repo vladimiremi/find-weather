@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import Reanimated from 'react-native-reanimated'
 
 export const Container = styled.View`
   flex-direction: row;
@@ -7,7 +8,7 @@ export const Container = styled.View`
   width: 100%;
 `;
 
-export const ContainerCard = styled.View`
+export const ContainerCard = styled(Reanimated.View)`
   padding: 8px 18px;
   border-radius: 20px;
   background-color: ${({ theme }) => theme.COLORS.DARK_300};
