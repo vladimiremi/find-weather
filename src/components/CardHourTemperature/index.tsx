@@ -7,7 +7,7 @@ import Divider from '../Divider';
 
 import { Text } from '../Text';
 import { Container, ContainerCard, Icon, ContainerTemperature } from './styles';
-import { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
+import { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
 interface ICardHourTemperature {
   id: number;
@@ -35,11 +35,11 @@ export const CardHourTemperature = ({ data, }: ICardHourTemperatureData) => {
   })
 
   function onPressIn(){
-    scale.value = 1.11
+    scale.value = withTiming(1.1)
   }
 
   function onPressOut(){
-    scale.value = 1
+    scale.value = withTiming(1)
   }
 
   return (
