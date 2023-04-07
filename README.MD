@@ -2,7 +2,7 @@
 <h1 align="center">Find Weather</h1>
 <Img width="20%" src="assets/logo.png" />
 
-<p>Esse projeto foi desenvolvido para completar o desafio #7DayOfCode desenvolvido pela Ilda Neta em parceria com a Alura, que na verdade não durou só 7 dias. Foram vários dias, estudando e lendo documentações para conseguir chegar ao fim.</p>
+<p>Esse projeto foi desenvolvido para completar o desafio #7DaysOfCode desenvolvido pela Ilda Neta em parceria com a Alura, que na verdade não durou só 7 dias. Foram vários dias, estudando e lendo documentações para conseguir chegar ao fim.</p>
 
 </div>
 
