@@ -10,6 +10,7 @@ import {
 import Divider from '../Divider';
 import { useNavigation } from '@react-navigation/native';
 import { WeatherIcons } from '../../utils/weatherIcons';
+import { RotateInDownLeft, SlideInDown } from 'react-native-reanimated';
 
 export interface ICityDataProps {
   location: {
@@ -38,6 +39,7 @@ const CityBox = ({ data }: ICityBox) => {
 
   return (
     <ContainerItem
+      entering={SlideInDown}
       key={Math.random()}
       onPress={() =>
         navigation.navigate('home/moredays', { city: location.name })

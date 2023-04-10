@@ -1,6 +1,10 @@
 import styled from 'styled-components/native';
+import Reanimated from 'react-native-reanimated'
+import { Pressable } from 'react-native';
 
-export const ContainerItem = styled.TouchableOpacity`
+const PressableAnimated = Reanimated.createAnimatedComponent(Pressable)
+
+export const ContainerItem = styled(PressableAnimated)`
   background-color: ${({ theme }) => theme.COLORS.DARK_400};
   width: 155px;
   padding: 12px;
