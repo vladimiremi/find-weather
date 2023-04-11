@@ -5,6 +5,7 @@ import {
   MaxTemperatureContainer,
   MinTemperatureContainer,
 } from './styles';
+import { FadeIn } from 'react-native-reanimated';
 
 interface ITemperature {
   minTemp?: number;
@@ -21,7 +22,7 @@ export const Temperature = ({
 }: ITemperature) => {
   const theme = useTheme();
   return (
-    <Container>
+    <Container entering={FadeIn.duration(2000)}>
       <MaxTemperatureContainer>
         <Text
           fontFamily={theme.FONT_FAMILY.OVERPASS_BOLD}
