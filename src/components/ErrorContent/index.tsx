@@ -3,11 +3,12 @@ import NotFound from '../../assets/images/not-found-destination.png';
 import { Text } from '../Text';
 import { useTheme } from 'styled-components/native';
 import Divider from '../Divider';
+import { FlipInEasyY } from 'react-native-reanimated';
 
 const ErrorContent = () => {
   const theme = useTheme();
   return (
-    <Container>
+    <Container entering={FlipInEasyY}>
       <ContainerImage>
         <Image source={NotFound} />
       </ContainerImage>
