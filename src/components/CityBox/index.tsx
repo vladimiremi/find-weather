@@ -10,7 +10,7 @@ import {
 import Divider from '../Divider';
 import { useNavigation } from '@react-navigation/native';
 import { WeatherIcons } from '../../utils/weatherIcons';
-import { FlipInEasyY } from 'react-native-reanimated';
+import { FlipInEasyY, SlideOutLeft } from 'react-native-reanimated';
 
 export interface ICityDataProps {
   location: {
@@ -40,6 +40,7 @@ const CityBox = ({ data }: ICityBox) => {
   return (
     <ContainerItem
       entering={FlipInEasyY}
+      exiting={SlideOutLeft}
       key={Math.random()}
       onPress={() =>
         navigation.navigate('home/moredays', { city: location.name })

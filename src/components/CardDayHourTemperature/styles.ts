@@ -1,8 +1,9 @@
+import Animated from 'react-native-reanimated';
 import styled from 'styled-components/native';
 
 export const Container = styled.View``;
 
-export const ContainerItem = styled.View`
+export const ContainerItem = styled(Animated.View)`
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 17px;

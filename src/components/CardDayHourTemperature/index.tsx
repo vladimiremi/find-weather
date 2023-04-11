@@ -13,6 +13,7 @@ import WindMiniature from '../../assets/images/wind-miniature.png';
 import Divider from '../Divider';
 import { IMoreDays } from '../../utils/moreDays.interface';
 import { WeatherIcons } from '../../utils/weatherIcons';
+import { FadeInUp } from 'react-native-reanimated';
 
 interface ICardDayHourTemperature {
   data: IMoreDays[];
@@ -23,7 +24,7 @@ const CardDayHourTemperature = ({ data }: ICardDayHourTemperature) => {
   return (
     <Container>
       {data.map((day, index) => (
-        <ContainerItem key={index}>
+        <ContainerItem key={index} entering={FadeInUp.delay(index * 100)}>
           <ContainerDateAndClimate>
               <ContainerDate>
             <Text
