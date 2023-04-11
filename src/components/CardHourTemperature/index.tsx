@@ -7,8 +7,9 @@ import Divider from '../Divider';
 
 import { Text } from '../Text';
 import { Container, ContainerCard, Icon, ContainerTemperature } from './styles';
-import { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import Animated, { FadeInUp, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
+const PressableAnimated = Animated.createAnimatedComponent(Pressable);
 interface ICardHourTemperature {
   id: number;
   temperatureValue: number;
@@ -44,7 +45,7 @@ export const CardHourTemperature = ({ data, }: ICardHourTemperatureData) => {
 
   return (
    
-    <Pressable onPressIn={onPressIn} onPressOut={onPressOut}>
+    <PressableAnimated onPressIn={onPressIn} onPressOut={onPressOut} entering={FadeInUp.delay(data.id * 180)}>
      <ContainerCard style={[AnimatedContainerStyle]}>
 
      
@@ -79,7 +80,7 @@ export const CardHourTemperature = ({ data, }: ICardHourTemperatureData) => {
       </Text>
        
       </ContainerCard>
-    </Pressable>
+    </PressableAnimated>
   
   );
 };
