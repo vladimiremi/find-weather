@@ -39,7 +39,7 @@ const CityBox = ({ data }: ICityBox) => {
 
   return (
     <ContainerItem
-      entering={FlipInEasyY}
+      entering={FlipInEasyY.duration(500)}
       exiting={SlideOutLeft}
       key={Math.random()}
       onPress={() =>

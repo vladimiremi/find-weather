@@ -8,7 +8,7 @@ import { FlipInEasyY } from 'react-native-reanimated';
 const ErrorContent = () => {
   const theme = useTheme();
   return (
-    <Container entering={FlipInEasyY}>
+    <Container entering={FlipInEasyY.duration(500)}>
       <ContainerImage>
         <Image source={NotFound} />
       </ContainerImage>
