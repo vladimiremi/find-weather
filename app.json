@@ -3,6 +3,7 @@
     "name": "find-weather",
     "slug": "find-weather",
     "version": "1.0.0",
+    "owner": "vladimir.costa",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -18,16 +19,23 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.vladimir.costa.findweather"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.vladimir.costa.findweather"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "e8e4f3b4-228c-464c-aa4f-3dae42456273"
+      }
     }
   }
 }
