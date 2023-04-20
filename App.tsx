@@ -10,6 +10,8 @@ import theme from './src/theme';
 import { StatusBar } from 'react-native';
 import Routes from './src/routes';
 import { UserProvider } from './src/context/userContext';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import 'react-native-gesture-handler';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -19,16 +21,18 @@ export default function App() {
     Overpass_300Light,
   });
   return (
-    <ThemeProvider theme={theme}>
-      <UserProvider>
-        <StatusBar
-          barStyle="light-content"
-          backgroundColor="transparent"
-          translucent
-        />
-        {fontsLoaded ? <Routes /> : false}
-      </UserProvider>
+    <GestureHandlerRootView>
+      <ThemeProvider theme={theme}>
+        <UserProvider>
+          <StatusBar
+            barStyle="light-content"
+            backgroundColor="transparent"
+            translucent
+          />
+          {fontsLoaded ? <Routes /> : false}
+        </UserProvider>
 
-    </ThemeProvider>
+      </ThemeProvider>
+    </GestureHandlerRootView>
   );
 }
